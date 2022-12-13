@@ -1,0 +1,30 @@
+
+.user_block{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas:
+    "user-image user-description";
+    padding: 20px 0;
+    text-align: left
+}
+
+.user_block img {
+    width: 100%;
+    grid-area: user-image;
+    height: auto;
+    border-radius: 50%;
+}
+.user_description{
+    grid-area: user-description;
+    padding: 0 20px;
+}
+
+.error{
+    border: 2px solid red;
+    color: red;
+    width: 100%;
+    max-width: 180px;
+    text-align: center;
+    margin: 20px 0;
+}

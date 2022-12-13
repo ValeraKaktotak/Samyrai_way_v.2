@@ -1,0 +1,10 @@
+.loader{
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+.loader img {
+    width: 150px;
+    border-radius: 50%;
+
+}

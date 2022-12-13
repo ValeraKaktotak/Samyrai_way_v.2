@@ -1,0 +1,17 @@
+.header {
+    background: aliceblue;
+    grid-area: header;
+}
+.header img {
+    width: 60px;
+}
+.login{
+    margin: 20px;
+    display: inline-block;
+    float: right;
+}
+
+
+.login button{
+    margin: 0 20px;
+}

@@ -1,0 +1,29 @@
+.users span{
+    cursor: pointer;
+}
+.user{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-areas:
+    "left right";
+    margin-bottom: 20px;
+}
+.left{
+    grid-area: left;
+    text-align: center;
+    padding: 15px;
+}
+.right{
+    grid-area: right;
+    border-radius: 20px;
+    background: burlywood;
+    padding: 15px;
+}
+.avatar{
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+.current_page{
+    font-weight: bold;
+}

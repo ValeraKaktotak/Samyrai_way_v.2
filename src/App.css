@@ -1,0 +1,18 @@
+.App_wrapper{
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas:
+    "header header"
+    "sidebar content";
+    grid-gap: 1vw;
+    text-align: left;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.App_wrapper_content{
+    grid-area: content;
+    background: #e1e4e7;
+    padding: 15px;
+}

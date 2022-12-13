@@ -1,0 +1,9 @@
+.friends{
+    padding: 5px;
+    display: grid;
+}
+
+.friends img{
+    border-radius: 50%;
+    width: 100%;
+}

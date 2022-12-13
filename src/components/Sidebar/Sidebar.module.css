@@ -1,0 +1,27 @@
+
+.sidebar {
+    background: aliceblue;
+    grid-area: sidebar;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #b00505;
+}
+.active{
+    color: green;
+}
+.sidebar h3{
+    text-align: center;
+    margin: 40px 0 20px;
+}
+
+/*.friends_block{*/
+/*    display: grid;*/
+/*    grid-template-columns: 1fr 1fr 1fr;*/
+/*    align-items: center;*/
+/*}*/
