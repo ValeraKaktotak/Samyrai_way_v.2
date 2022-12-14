@@ -1,18 +1,10 @@
 import {AuthAPI} from "../api/api";
-
 const setAuthActionCreatorConst = 'SET-LOGIN-AUTH';
 
-export type authReducerInitType = {
-    id: number | null
-    email: string | null
-    login: string | null
-    isLogged: boolean | null
-}
 type setAuthActionType = {
     type: typeof setAuthActionCreatorConst,
     UserData: authReducerInitType
 }
-
 export const setAuthActionCreator = (id: number | null, email: string | null, login: string | null, isLogged: boolean | null):setAuthActionType => {
     return {
         type: setAuthActionCreatorConst,
@@ -38,12 +30,14 @@ export const logOutHeaderAuthThunkActionCreator = () => {
     }
 }
 
-const authReducerInit:authReducerInitType = {
-    id: null,
-    email: null,
-    login: null,
-    isLogged: false,
+const authReducerInit = {
+    id: null as number | null,
+    email: null as string | null,
+    login: null as string |null,
+    isLogged: false as boolean | null,
 }
+type authReducerInitType = typeof authReducerInit
+
 const authReducer = (state = authReducerInit, action:setAuthActionType):authReducerInitType => {
     switch (action.type) {
         case setAuthActionCreatorConst:

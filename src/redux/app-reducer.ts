@@ -25,7 +25,7 @@ export const initializationAppThunkActionCreator = () => {
     }
 }
 
-export type appReducerInitType = {
+type appReducerInitType = {
     initialized: boolean
 }
 

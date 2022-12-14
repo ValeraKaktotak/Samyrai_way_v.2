@@ -2,18 +2,15 @@ import {LoginApi} from "../api/api";
 import {logOutHeaderAuthThunkActionCreator, AuthThunkActionCreator} from "./auth-reducer";
 import {stopSubmit} from "redux-form";
 
-
 const captchaActionCreatorConst = 'CAPTCHA-URL';
 
 type captchaType = {
     url: string
 }
-
 type captchaActionCreatorType = {
     type: typeof captchaActionCreatorConst
     captcha: captchaType
 }
-
 export const captchaActionCreator = (captcha:captchaType):captchaActionCreatorType => {
     return {
         type: captchaActionCreatorConst,

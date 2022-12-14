@@ -1,20 +1,46 @@
 const addMessageActionCreatorConst = 'ADD-MESSAGE';
 const changeMessageTextActionCreatorConst = 'CHANGE-MESSAGE-TEXT';
 
-export const changeMessageTextActionCreator = (text) => {
+
+type changeMessageTextActionType = {
+    type: typeof changeMessageTextActionCreatorConst
+    newText: string
+}
+export const changeMessageTextActionCreator = (text: string): changeMessageTextActionType => {
     return {
         type: changeMessageTextActionCreatorConst,
         newText: text
     }
 }
-export const addMessageActionCreator = (message) => {
+
+type addMessageActionType = {
+    type: typeof addMessageActionCreatorConst
+    message: string
+}
+type messageType = {
+    userMessage: string
+}
+export const addMessageActionCreator = (message: messageType): addMessageActionType => {
     return {
-        type: addMessageActionCreatorConst, message:message.userMessage
+        type: addMessageActionCreatorConst,
+        message: message.userMessage
     }
 }
 
-//передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
-const init = {
+type dialogDataType = {
+    id: number
+    name: string
+}
+type messageDataType = {
+    id: number
+    message: string
+}
+type messagesReducerInitType = {
+    dialogData: Array<dialogDataType>
+    messageData: Array<messageDataType>
+    newMessageDataArea: string
+}
+const messagesReducerInit: messagesReducerInitType = {
     dialogData: [
         {id: 1, name: 'Valera'},
         {id: 2, name: 'Dima'},
@@ -29,39 +55,24 @@ const init = {
         {id: 4, message: 'How are you?)'},
         {id: 5, message: 'Are you ok?'},
     ],
-    newMessageDataArea: '',
-    reselectTest: 1
+    newMessageDataArea: ''
 }
-const messagesReducer = (state = init, action) => {
+const messagesReducer = (state = messagesReducerInit, action: changeMessageTextActionType | addMessageActionType) => {
     if (action.type === changeMessageTextActionCreatorConst) {
-        // let copyState = {...state};
-        // copyState.newMessageDataArea = action.newText;
-        // return copyState;
-        return{
+        return {
             ...state,
             newMessageDataArea: action.newText
         }
     } else if (action.type === addMessageActionCreatorConst) {
         let newMessageObject = {
-            id: 6,
+            id: state.messageData.length + 1,
             message: action.message
         }
-        // let copyState = {...state};
-        // copyState.messageData = [...state.messageData]
-        // copyState.messageData.unshift(newMessageObject);
-        // copyState.newMessageDataArea = '';
-        // return copyState;
-        return{
+        return {
             ...state,
             messageData: [newMessageObject, ...state.messageData],
             newMessageDataArea: ''
         }
-    } else if (action.type === "FAKE"){
-        return{
-            ...state,
-            reselectTest: state.reselectTest + 1
-        }
-
     }
     return state
 }
