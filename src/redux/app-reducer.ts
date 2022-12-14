@@ -2,8 +2,12 @@ import {AuthThunkActionCreator} from "./auth-reducer";
 
 const initializationActionCreatorConst = 'INITIALIZATION';
 
+type initializationActionCreatorType = {
+    type: typeof initializationActionCreatorConst
+}
+
 // Action creators
-export const initializationActionCreator = () => {
+export const initializationActionCreator = (): initializationActionCreatorType => {
     return {
         type: initializationActionCreatorConst
     }
@@ -11,25 +15,24 @@ export const initializationActionCreator = () => {
 
 // thunk action creators
 export const initializationAppThunkActionCreator = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
 
         let authPromise = dispatch(AuthThunkActionCreator())
 
         authPromise.then(() => {
             dispatch(initializationActionCreator())
         })
-        // Если промисов много, помещаем их в массив и используем .then к массиву
-        // Promise.all([authPromise, promise1, promise2])
-        //     .then(()=>{
-        //
-        //     })
     }
 }
 
-const init = {
+type appReducerInitType = {
+    initialized: boolean
+}
+
+const appReducerInit: appReducerInitType = {
     initialized: false
 }
-const appReducer = (state = init, action) => {
+const appReducer = (state = appReducerInit, action: any): appReducerInitType => {
     switch (action.type) {
         case initializationActionCreatorConst:
             return {

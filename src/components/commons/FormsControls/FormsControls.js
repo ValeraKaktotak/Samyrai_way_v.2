@@ -1,3 +1,4 @@
+import React from 'react'
 import style from './FormControls.module.css'
 
 //фенкция для textarea

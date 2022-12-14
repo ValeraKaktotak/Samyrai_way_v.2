@@ -2,18 +2,24 @@ import {LoginApi} from "../api/api";
 import {logOutHeaderAuthThunkActionCreator, AuthThunkActionCreator} from "./auth-reducer";
 import {stopSubmit} from "redux-form";
 
-
 const captchaActionCreatorConst = 'CAPTCHA-URL';
 
-export const captchaActionCreator = (captcha) => {
+type captchaType = {
+    url: string
+}
+type captchaActionCreatorType = {
+    type: typeof captchaActionCreatorConst
+    captcha: captchaType
+}
+export const captchaActionCreator = (captcha:captchaType):captchaActionCreatorType => {
     return {
         type: captchaActionCreatorConst,
         captcha
     }
 }
 
-export const loginUserThunkActionCreator = (email, password, rememberMe, captcha) => {
-    return async (dispatch) => {
+export const loginUserThunkActionCreator = (email:string, password:string, rememberMe:boolean, captcha:string) => {
+    return async (dispatch: any) => {
         let loginResponse = await LoginApi.login(email, password, rememberMe, captcha)
         if (loginResponse.resultCode === 0) {
             dispatch(AuthThunkActionCreator())
@@ -29,14 +35,14 @@ export const loginUserThunkActionCreator = (email, password, rememberMe, captcha
 }
 
 export const captchaThunk = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         let captchaUrl = await LoginApi.captcha()
         dispatch(captchaActionCreator(captchaUrl))
     }
 }
 
 export const logOutUserThunkActionCreator = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         let logOutResponse = await LoginApi.logOut()
         if (logOutResponse.resultCode === 0) {
             dispatch(logOutHeaderAuthThunkActionCreator())
@@ -44,12 +50,15 @@ export const logOutUserThunkActionCreator = () => {
     }
 }
 
-//передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
-const init = {
+type loginReducerInitType = {
+    loginData: Array<any>
+    captcha: string | null
+}
+const loginReducerInit: loginReducerInitType = {
     loginData: [],
     captcha: null
 }
-const loginReducer = (state = init, action) => {
+const loginReducer = (state = loginReducerInit, action:captchaActionCreatorType) => {
     switch (action.type) {
         case captchaActionCreatorConst:
             return {

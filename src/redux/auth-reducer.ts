@@ -1,9 +1,11 @@
 import {AuthAPI} from "../api/api";
-
 const setAuthActionCreatorConst = 'SET-LOGIN-AUTH';
 
-// Action creators
-export const setAuthActionCreator = (id, email, login, isLogged) => {
+type setAuthActionType = {
+    type: typeof setAuthActionCreatorConst,
+    UserData: authReducerInitType
+}
+export const setAuthActionCreator = (id: number | null, email: string | null, login: string | null, isLogged: boolean | null):setAuthActionType => {
     return {
         type: setAuthActionCreatorConst,
         UserData: {
@@ -12,9 +14,8 @@ export const setAuthActionCreator = (id, email, login, isLogged) => {
     }
 }
 
-// thunk action creators
 export const AuthThunkActionCreator = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         let response = await AuthAPI.authMe();
         if (response.resultCode === 0) {
             let {id, email, login} = response.data;
@@ -24,19 +25,20 @@ export const AuthThunkActionCreator = () => {
 }
 
 export const logOutHeaderAuthThunkActionCreator = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
         dispatch(setAuthActionCreator(null, null, null, false))
     }
 }
 
-//передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
-const init = {
-    id: null,
-    email: null,
-    login: null,
-    isLogged: false,
+const authReducerInit = {
+    id: null as number | null,
+    email: null as string | null,
+    login: null as string |null,
+    isLogged: false as boolean | null,
 }
-const authReducer = (state = init, action) => {
+type authReducerInitType = typeof authReducerInit
+
+const authReducer = (state = authReducerInit, action:setAuthActionType):authReducerInitType => {
     switch (action.type) {
         case setAuthActionCreatorConst:
             return {
