@@ -42,13 +42,21 @@ export const getUsersThunkActionCreator = (usersCurrentPage, usersCountOnPage) =
                 dispatch(preloaderActionCreator(false))
             })
     }
+    // вариант getUsersThunkActionCreator с async await
+    // return async (dispatch) => {
+    //     dispatch(preloaderActionCreator(true))
+    //     let getUser = await UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
+    //     dispatch(addUsersActionCreator(getUser.items))
+    //     dispatch(addUserCountActionCreator(getUser.totalCount))
+    //     dispatch(preloaderActionCreator(false))
+    // }
 }
 export const changePagesThunkActionCreator = (usersCurrentPage, usersCountOnPage) => {
-    return (dispatch) =>{
+    return (dispatch) => {
         dispatch(preloaderActionCreator(true))
         dispatch(changeUsersCurrentPageActionCreator(usersCurrentPage))
         UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
-            .then(response=>{
+            .then(response => {
                 dispatch(addUsersActionCreator(response.items))
                 dispatch(addUserCountActionCreator(response.totalCount))
                 dispatch(preloaderActionCreator(false))
@@ -56,27 +64,27 @@ export const changePagesThunkActionCreator = (usersCurrentPage, usersCountOnPage
     }
 }
 export const unfollowThunkActionCreator = (usersId) => {
-    return (dispatch) =>{
+    return (dispatch) => {
         dispatch(followingProcessActionCreator(true, usersId))
         FollowAPI.unfollowUser(usersId)
-        .then(response=>{
-            if(response.resultCode === 0){
-                dispatch(unfollowActionCreator(usersId))
-            }
-            dispatch(followingProcessActionCreator(false, usersId))
-        })
+            .then(response => {
+                if (response.resultCode === 0) {
+                    dispatch(unfollowActionCreator(usersId))
+                }
+                dispatch(followingProcessActionCreator(false, usersId))
+            })
     }
 }
 export const followThunkActionCreator = (usersId) => {
-    return (dispatch) =>{
+    return (dispatch) => {
         dispatch(followingProcessActionCreator(true, usersId))
         FollowAPI.followUser(usersId)
-        .then(response=>{
-            if(response.resultCode === 0){
-                dispatch(followActionCreator(usersId))
-            }
-            dispatch(followingProcessActionCreator(false, usersId))
-        })
+            .then(response => {
+                if (response.resultCode === 0) {
+                    dispatch(followActionCreator(usersId))
+                }
+                dispatch(followingProcessActionCreator(false, usersId))
+            })
     }
 }
 
@@ -131,8 +139,8 @@ const usersReducer = (state = init, action) => {
             return {
                 ...state,
                 isFollowingProcess: action.toggleStatus
-                    ?[...state.isFollowingProcess, action.userId ]
-                    :[...state.isFollowingProcess.filter(id => id !== action.userId)]
+                    ? [...state.isFollowingProcess, action.userId]
+                    : [...state.isFollowingProcess.filter(id => id !== action.userId)]
             }
     }
     return state

@@ -1,3 +1,4 @@
+import React from 'react'
 import spinner from '../../assets/images/Yin and Yang.gif';
 import style from './Preloder.module.css';
 

@@ -1,3 +1,4 @@
+import React from 'react'
 import style from './UserDialog.module.css';
 import {NavLink} from "react-router-dom";
 

@@ -62,7 +62,7 @@ const Paginator = (props) => {
                                  }}> {page} </span>
                 })
             }
-            {currentPageBlock < pagesBlocksCount && <button onClick={nextButtonHandler} >NEXT >></button>}
+            {currentPageBlock < pagesBlocksCount && <button onClick={nextButtonHandler} >NEXT</button>}
         </div>
     )
 }
