@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ef9b0e7b-f874-42ed-b45e-177b6c94e2d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/app-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/app-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/auth-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/auth-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/login-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/login-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/messages-reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/messages-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/messages-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/messages-reducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +89,7 @@
       <workItem from="1670949018671" duration="201000" />
       <workItem from="1671005299174" duration="17408000" />
       <workItem from="1671027028062" duration="4502000" />
-      <workItem from="1671042511595" duration="1213000" />
+      <workItem from="1671042511595" duration="2998000" />
     </task>
     <servers />
   </component>
