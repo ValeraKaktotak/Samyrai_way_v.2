@@ -9,65 +9,92 @@ const preloaderActionCreatorConst = 'PRELOADER';
 const followingProcessActionCreatorConst = 'TOGGLE_IS_FOLLOWING';
 
 // Action creators
-export const followActionCreator = (userId) => {
+type followActionCreatorType = {
+    type: typeof followActionCreatorConst
+    userId: number
+}
+export const followActionCreator = (userId: number): followActionCreatorType => {
     return {type: followActionCreatorConst, userId}
 }
-export const unfollowActionCreator = (userId) => {
+
+type unfollowActionCreatorType = {
+    type: typeof unfollowActionCreatorConst
+    userId: number
+}
+export const unfollowActionCreator = (userId: number): unfollowActionCreatorType => {
     return {type: unfollowActionCreatorConst, userId}
 }
-export const addUsersActionCreator = (users) => {
+
+type addUsersActionCreatorType = {
+    type: typeof addUsersActionCreatorConst
+    users: usersType
+}
+export const addUsersActionCreator = (users: usersType): addUsersActionCreatorType => {
     return {type: addUsersActionCreatorConst, users}
 }
-export const addUserCountActionCreator = (count) => {
+
+type addUserCountActionCreatorType = {
+    type: typeof addUsersCountActionCreatorConst
+    count: number
+}
+export const addUserCountActionCreator = (count: number): addUserCountActionCreatorType => {
     return {type: addUsersCountActionCreatorConst, count}
 }
-export const changeUsersCurrentPageActionCreator = (page) => {
+
+type changeUsersCurrentPageActionCreatorType = {
+    type: typeof changeUsersCurrentPageActionCreatorConst
+    page: number
+}
+export const changeUsersCurrentPageActionCreator = (page: number): changeUsersCurrentPageActionCreatorType => {
     return {type: changeUsersCurrentPageActionCreatorConst, page}
 }
-export const preloaderActionCreator = (isLoader) => {
+
+type preloaderActionCreatorType = {
+    type: typeof preloaderActionCreatorConst
+    isLoader: boolean
+}
+export const preloaderActionCreator = (isLoader: boolean): preloaderActionCreatorType => {
     return {type: preloaderActionCreatorConst, isLoader}
 }
-export const followingProcessActionCreator = (toggleStatus, userId) => {
+
+type followingProcessActionCreatorType = {
+    type: typeof followingProcessActionCreatorConst,
+    toggleStatus: boolean,
+    userId: number
+}
+export const followingProcessActionCreator = (toggleStatus: boolean, userId: number): followingProcessActionCreatorType => {
     return {type: followingProcessActionCreatorConst, toggleStatus, userId}
 }
 
 // thunk action creators
-export const getUsersThunkActionCreator = (usersCurrentPage, usersCountOnPage) => {
-    return (dispatch) =>{
+export const getUsersThunkActionCreator = (usersCurrentPage: number, usersCountOnPage: number) => {
+    return (dispatch: any) =>{
         dispatch(preloaderActionCreator(true))
         UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
-            .then(response=>{
+            .then((response: any)=>{
                 dispatch(addUsersActionCreator(response.items))
                 dispatch(addUserCountActionCreator(response.totalCount))
                 dispatch(preloaderActionCreator(false))
             })
     }
-    // вариант getUsersThunkActionCreator с async await
-    // return async (dispatch) => {
-    //     dispatch(preloaderActionCreator(true))
-    //     let getUser = await UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
-    //     dispatch(addUsersActionCreator(getUser.items))
-    //     dispatch(addUserCountActionCreator(getUser.totalCount))
-    //     dispatch(preloaderActionCreator(false))
-    // }
 }
-export const changePagesThunkActionCreator = (usersCurrentPage, usersCountOnPage) => {
-    return (dispatch) => {
+export const changePagesThunkActionCreator = (usersCurrentPage: number, usersCountOnPage: number) => {
+    return (dispatch: any) => {
         dispatch(preloaderActionCreator(true))
         dispatch(changeUsersCurrentPageActionCreator(usersCurrentPage))
         UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
-            .then(response => {
+            .then((response: any) => {
                 dispatch(addUsersActionCreator(response.items))
                 dispatch(addUserCountActionCreator(response.totalCount))
                 dispatch(preloaderActionCreator(false))
             })
     }
 }
-export const unfollowThunkActionCreator = (usersId) => {
-    return (dispatch) => {
+export const unfollowThunkActionCreator = (usersId: number) => {
+    return (dispatch: any) => {
         dispatch(followingProcessActionCreator(true, usersId))
         FollowAPI.unfollowUser(usersId)
-            .then(response => {
+            .then((response: any) => {
                 if (response.resultCode === 0) {
                     dispatch(unfollowActionCreator(usersId))
                 }
@@ -75,11 +102,11 @@ export const unfollowThunkActionCreator = (usersId) => {
             })
     }
 }
-export const followThunkActionCreator = (usersId) => {
-    return (dispatch) => {
+export const followThunkActionCreator = (usersId: number) => {
+    return (dispatch: any) => {
         dispatch(followingProcessActionCreator(true, usersId))
         FollowAPI.followUser(usersId)
-            .then(response => {
+            .then((response: any) => {
                 if (response.resultCode === 0) {
                     dispatch(followActionCreator(usersId))
                 }
@@ -88,16 +115,28 @@ export const followThunkActionCreator = (usersId) => {
     }
 }
 
-//передаем часть данных связанных с данным редьюсером для первого рендера(создание state)
-const init = {
-    users: [],
-    usersCountOnPage: 10,
-    usersCurrentPage: 1,
-    usersCount: 0,
-    isLoader: false,
-    isFollowingProcess: []
+type usersPhotosType = {
+    small: null | string
+    large: null | string
 }
-const usersReducer = (state = init, action) => {
+type usersType = {
+    name: string
+    id: number
+    photos: usersPhotosType
+    status: null | string
+    followed: boolean
+
+}
+const usersReducerInit = {
+    users: [] as Array<any>,
+    usersCountOnPage: 10 as number ,
+    usersCurrentPage: 1 as number,
+    usersCount: 0 as number,
+    isLoader: false as boolean,
+    isFollowingProcess: [] as Array<any>
+}
+type usersReducerInitType = typeof usersReducerInit
+const usersReducer = (state = usersReducerInit, action: any) => {
     switch (action.type) {
         case followActionCreatorConst:
             return {
