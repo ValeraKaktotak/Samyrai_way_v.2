@@ -5,7 +5,7 @@ type setAuthActionType = {
     type: typeof setAuthActionCreatorConst,
     UserData: authReducerInitType
 }
-export const setAuthActionCreator = (id: number | null, email: string | null, login: string | null, isLogged: boolean | null):setAuthActionType => {
+export const setAuthActionCreator = (id: number | null, email: string | null, login: string | null, isLogged: boolean):setAuthActionType => {
     return {
         type: setAuthActionCreatorConst,
         UserData: {
@@ -34,7 +34,7 @@ const authReducerInit = {
     id: null as number | null,
     email: null as string | null,
     login: null as string |null,
-    isLogged: false as boolean | null,
+    isLogged: false as boolean,
 }
 type authReducerInitType = typeof authReducerInit
 
@@ -43,7 +43,7 @@ const authReducer = (state = authReducerInit, action:setAuthActionType):authRedu
         case setAuthActionCreatorConst:
             return {
                 ...state,
-                ...action.UserData
+                ...action.UserData,
             }
     }
     return state

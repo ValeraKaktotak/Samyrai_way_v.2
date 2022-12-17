@@ -32,7 +32,6 @@ class MyPostContainer extends React.Component {
     }
 
     render() {
-        console.log('MyPostContainer RERENDER')
         return (
             <MyPosts {...this.props} />
         )

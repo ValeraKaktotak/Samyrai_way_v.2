@@ -59,19 +59,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-
-// //Объединил HOCs в функции compose
-// //для react v6 специальная функция обвертка для HOC withRouter.
-// let withRouterComponent = withRouter(MyProfileContainer)
-//
-// //HOC для проверки залогинен ли пользователь
-// let withAuth = withAuthRedirect(withRouterComponent)
-//
-// export default connect(mapStateToProps, {getUser:getUserThunkActionCreator,
-//     getUserStatus: getUserStatusThunkActionCreator,
-//     setUserStatus: setUserStatusThunkActionCreator} )(withAuth)
-
-
 export default compose(
     withRouter,
     withAuthRedirect,

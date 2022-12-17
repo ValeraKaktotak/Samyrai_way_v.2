@@ -11,18 +11,9 @@ const MyPosts = (props) => {
     const onSubmitFunction = (data) => {
         props.onAddPost(data)
     }
-
-    // const changePostText = (e) => {
-    //     let text = e.currentTarget.value;
-    //     props.onChangePostText(text)
-    // }
     return (
         <div className={style.my_posts}>
             <div className={style.add_data}>
-                {/*<textarea value={props.currentMessageText} onChange={changePostText} placeholder='Enter your message'/>*/}
-                {/*<div>*/}
-                {/*    <button onClick={addPost}>Add post</button>*/}
-                {/*</div>*/}
                 < WithReduxForm onSubmit={onSubmitFunction} />
             </div>
             <h3>My posts</h3>
