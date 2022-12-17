@@ -48,7 +48,7 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         onAddPost: (message) => {
-            dispatch(addPostActionCreator(message))
+            dispatch(addPostActionCreator(message.myMessage))
         }
     }
 }
