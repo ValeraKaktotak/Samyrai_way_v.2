@@ -128,12 +128,12 @@ type usersType = {
 
 }
 const usersReducerInit = {
-    users: [] as Array<any>,
+    users: [] as Array<usersType>,
     usersCountOnPage: 10 as number ,
     usersCurrentPage: 1 as number,
     usersCount: 0 as number,
     isLoader: false as boolean,
-    isFollowingProcess: [] as Array<any>
+    isFollowingProcess: [] as Array<number>
 }
 type usersReducerInitType = typeof usersReducerInit
 const usersReducer = (state = usersReducerInit, action: any): usersReducerInitType => {
