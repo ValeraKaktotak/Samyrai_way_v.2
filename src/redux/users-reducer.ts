@@ -136,7 +136,7 @@ const usersReducerInit = {
     isFollowingProcess: [] as Array<any>
 }
 type usersReducerInitType = typeof usersReducerInit
-const usersReducer = (state = usersReducerInit, action: any) => {
+const usersReducer = (state = usersReducerInit, action: any): usersReducerInitType => {
     switch (action.type) {
         case followActionCreatorConst:
             return {

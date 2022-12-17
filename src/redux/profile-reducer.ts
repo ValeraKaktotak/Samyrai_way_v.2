@@ -1,6 +1,7 @@
 import {ProfileAPI} from "../api/api";
 import {AuthThunkActionCreator} from "./auth-reducer";
 import {stopSubmit} from "redux-form";
+import {postDataType, contactsType, photosType, profileType} from "../types/types"
 
 const addPostActionCreatorConst = 'ADD-POST';
 const setProfileActionCreatorConst = 'SET-PROFILE';
@@ -85,35 +86,6 @@ export const setUserStatusThunkActionCreator = (status: string) => {
             dispatch(setUserStatusActionCreator(status))
         }
     }
-}
-
-type postDataType = {
-    id: number
-    message: string
-    likes: number
-    avatar: string
-}
-type contactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-}
-type photosType = {
-    small: string | null
-    large: string | null
-}
-type profileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: contactsType
-    photos: photosType
 }
 
 const profileReducerInit = {
