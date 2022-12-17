@@ -32,7 +32,6 @@ class MyPostContainer extends React.Component {
     }
 
     render() {
-        console.log('MyPostContainer RERENDER')
         return (
             <MyPosts {...this.props} />
         )
@@ -49,7 +48,7 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         onAddPost: (message) => {
-            dispatch(addPostActionCreator(message))
+            dispatch(addPostActionCreator(message.myMessage))
         }
     }
 }
