@@ -17,9 +17,23 @@ import {
     getUsersCountOnPage,
     getUsersCurrentPage, getUsers
 } from "../../redux/users-selectors";
+import {usersType} from "../../types/types";
+import {stateType} from "../../redux/redux-store";
 
+type propTypes = {
+    usersCount: number
+    usersCurrentPage: number
+    usersCountOnPage: number
+    isLoader: boolean
+    users: Array<usersType>
+    followingProgress: Array<number>
+    getUser: (usersCurrentPage: number, usersCountOnPage: number) => void
+    changePage: (usersCurrentPage: number, usersCountOnPage: number) => void
+    setUnfollow: (id: number) => void
+    setFollow: (id: number) => void
+}
 
-class UsersContainer extends React.Component{
+class UsersContainer extends React.Component<propTypes>{
 
     componentDidMount() {
         this.props.getUser(this.props.usersCurrentPage, this.props.usersCountOnPage)
@@ -77,7 +91,7 @@ class UsersContainer extends React.Component{
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:stateType) => {
     return {
         users: getUsers(state),
         usersCountOnPage: getUsersCountOnPage(state),

@@ -6,7 +6,7 @@ type propsType = {
     usersCount: number
     usersCountOnPage: number
     usersCurrentPage: number
-    pagesInBlock: number
+    pagesInBlock?: number
     changePage: (page: number, usersCountOnPage: number) => void
     buildUsers: () => any
 }
