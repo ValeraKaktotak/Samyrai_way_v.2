@@ -77,19 +77,6 @@ class UsersContainer extends React.Component{
     }
 }
 
-//mapStateToProps без селекторов
-// let mapStateToProps = (state) => {
-//     return {
-//         users: state.usersPage.users,
-//         usersCountOnPage: state.usersPage.usersCountOnPage,
-//         usersCount: state.usersPage.usersCount,
-//         usersCurrentPage: state.usersPage.usersCurrentPage,
-//         isLoader: state.usersPage.isLoader,
-//         followingProgress: state.usersPage.isFollowingProcess
-//     }
-// }
-
-//mapStateToProps селекторы
 let mapStateToProps = (state) => {
     return {
         users: getUsers(state),
@@ -100,43 +87,6 @@ let mapStateToProps = (state) => {
         followingProgress: getFollowingProgress(state)
     }
 }
-
-//оптимизировал эту функцию в объект ниже
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         follow: (userid) => {
-//             dispatch(followActionCreator(userid))
-//         },
-//         unFollow: (userid) => {
-//             dispatch(unfollowActionCreator(userid))
-//         },
-//         addUsers: (users) => {
-//             dispatch(addUsersActionCreator(users))
-//         },
-//         addUserCount: (count) => {
-//             dispatch(addUserCountActionCreator(count))
-//         },
-//         changeCurrentPage: (page) => {
-//             dispatch(changeUsersCurrentPageActionCreator(page))
-//         },
-//         preloaderActionCreator: (isLoader) => {
-//             dispatch(preloaderActionCreator(isLoader))
-//         }
-//     }
-// }
-
-/*
-Объединил HOCs в функции compose
-
-let withAuth = withAuthRedirect(UsersContainer)
-
-export default connect(mapStateToProps, {
-    changePage:changePagesThunkActionCreator,
-    getUser:getUsersThunkActionCreator,
-    setUnfollow: unfollowThunkActionCreator,
-    setFollow: followThunkActionCreator,
-})(withAuth)
-*/
 
 export default compose(
     connect(mapStateToProps, {
