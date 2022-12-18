@@ -20,6 +20,9 @@ const reducers = combineReducers({
     app:appReducer
 })
 
+type rootReducersType = typeof reducers
+export type stateType = ReturnType<rootReducersType>
+
 //подключаем redux dev tools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleWear)));
