@@ -18,6 +18,7 @@ import {
     getUsersCurrentPage, getUsers
 } from "../../redux/users-selectors";
 import {usersType} from "../../types/types";
+import {stateType} from "../../redux/redux-store";
 
 type propTypes = {
     usersCount: number
@@ -90,7 +91,7 @@ class UsersContainer extends React.Component<propTypes>{
     }
 }
 
-let mapStateToProps = (state:any) => {
+let mapStateToProps = (state:stateType) => {
     return {
         users: getUsers(state),
         usersCountOnPage: getUsersCountOnPage(state),
