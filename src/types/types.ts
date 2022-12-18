@@ -26,3 +26,25 @@ export type profileType = {
     contacts: contactsType
     photos: photosType
 }
+ //users-reducer
+const usersReducerInit = {
+    users: [] as Array<usersType>,
+    usersCountOnPage: 10 as number ,
+    usersCurrentPage: 1 as number,
+    usersCount: 0 as number,
+    isLoader: false as boolean,
+    isFollowingProcess: [] as Array<number>
+}
+export type usersReducerInitType = typeof usersReducerInit
+export type usersPhotosType = {
+    small: null | string
+    large: null | string
+}
+export type usersType = {
+    name: string
+    id: number
+    photos: usersPhotosType
+    status: null | string
+    followed: boolean
+    location?: string
+}
