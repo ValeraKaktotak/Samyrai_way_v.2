@@ -20,18 +20,22 @@ import {
 import {usersType} from "../../types/types";
 import {stateType} from "../../redux/redux-store";
 
-type propTypes = {
+type OwnPropsType = {}
+type mapDispatchTypes = {
+    getUser: (usersCurrentPage: number, usersCountOnPage: number) => void
+    changePage: (usersCurrentPage: number, usersCountOnPage: number) => void
+    setUnfollow: (id: number) => void
+    setFollow: (id: number) => void
+}
+type mapStateTypes = {
     usersCount: number
     usersCurrentPage: number
     usersCountOnPage: number
     isLoader: boolean
     users: Array<usersType>
     followingProgress: Array<number>
-    getUser: (usersCurrentPage: number, usersCountOnPage: number) => void
-    changePage: (usersCurrentPage: number, usersCountOnPage: number) => void
-    setUnfollow: (id: number) => void
-    setFollow: (id: number) => void
 }
+type propTypes = mapDispatchTypes & mapStateTypes
 
 class UsersContainer extends React.Component<propTypes>{
 
@@ -91,7 +95,7 @@ class UsersContainer extends React.Component<propTypes>{
     }
 }
 
-let mapStateToProps = (state:stateType) => {
+let mapStateToProps = (state:stateType): mapStateTypes => {
     return {
         users: getUsers(state),
         usersCountOnPage: getUsersCountOnPage(state),
@@ -103,7 +107,7 @@ let mapStateToProps = (state:stateType) => {
 }
 
 export default compose(
-    connect(mapStateToProps, {
+    connect<mapStateTypes, mapDispatchTypes, OwnPropsType, stateType>(mapStateToProps, {
         changePage:changePagesThunkActionCreator,
         getUser:getUsersThunkActionCreator,
         setUnfollow: unfollowThunkActionCreator,
