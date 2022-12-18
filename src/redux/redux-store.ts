@@ -24,12 +24,14 @@ type rootReducersType = typeof reducers
 export type stateType = ReturnType<rootReducersType>
 
 //подключаем redux dev tools
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleWear)));
 
 //подключение редакса без redux dev tools
 //const store = createStore(reducers, applyMiddleware(thunkMiddleWear));
 
+// @ts-ignore
 window.store = store;
 
 export default store
