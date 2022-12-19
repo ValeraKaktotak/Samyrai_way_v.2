@@ -13,7 +13,7 @@ type changeMessageTextActionType = {
     newText: string
 }
 
-type addMessageActionType = {
+export type addMessageActionType = {
     type: typeof addMessageActionCreatorConst
     message: string
 }
