@@ -1,8 +1,13 @@
 import React from 'react';
 import style from './UserDialogs.module.css'
 import UserDialog from "./UserDialog/UserDialog";
+import {messagesReducerDialogDataType} from "../../../types/types";
 
-const UserDialogs = (props) => {
+type propsType = {
+    dialogs: Array<messagesReducerDialogDataType>
+}
+
+const UserDialogs = (props:propsType)=> {
     const dialogs = props.dialogs.map(d => <UserDialog key={d.id} name={d.name} id={d.id} />);
     return(
         <div className={style.user_dialogs}>

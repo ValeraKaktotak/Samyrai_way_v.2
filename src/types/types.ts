@@ -48,3 +48,13 @@ export type usersType = {
     followed: boolean
     location?: string
 }
+
+//messages-reducer
+export type messagesReducerDialogDataType = {
+    id: number
+    name: string
+}
+export type messagesReducerMessageDataType = {
+    id: number
+    message: string
+}
