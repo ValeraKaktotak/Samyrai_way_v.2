@@ -58,3 +58,6 @@ export type messagesReducerMessageDataType = {
     id: number
     message: string
 }
+export type messagesReducerMessageType = {
+    userMessage: string
+}

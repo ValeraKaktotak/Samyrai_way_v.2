@@ -1,4 +1,8 @@
-import {messagesReducerDialogDataType, messagesReducerMessageDataType} from "../types/types";
+import {
+    messagesReducerDialogDataType,
+    messagesReducerMessageDataType,
+    messagesReducerMessageType
+} from "../types/types";
 
 const addMessageActionCreatorConst = 'ADD-MESSAGE';
 const changeMessageTextActionCreatorConst = 'CHANGE-MESSAGE-TEXT';
@@ -8,32 +12,19 @@ type changeMessageTextActionType = {
     type: typeof changeMessageTextActionCreatorConst
     newText: string
 }
-export const changeMessageTextActionCreator = (text: string): changeMessageTextActionType => {
-    return {
-        type: changeMessageTextActionCreatorConst,
-        newText: text
-    }
-}
 
 type addMessageActionType = {
     type: typeof addMessageActionCreatorConst
     message: string
 }
-type messageType = {
-    userMessage: string
-}
-export const addMessageActionCreator = (message: messageType): addMessageActionType => {
+
+export const addMessageActionCreator = (message: messagesReducerMessageType): addMessageActionType => {
     return {
         type: addMessageActionCreatorConst,
         message: message.userMessage
     }
 }
 
-// type messagesReducerInitType = {
-//     dialogData: Array<dialogDataType>
-//     messageData: Array<messageDataType>
-//     newMessageDataArea: string
-// }
 const messagesReducerInit = {
     dialogData: [
         {id: 1, name: 'Valera'},
