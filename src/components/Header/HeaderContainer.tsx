@@ -17,7 +17,9 @@ type OwnProps = {}
 class HeaderContainer extends React.Component {
     render() {
         return (
-            <Header {...this.props} />
+            <Header auth={false} userId={null} loginName={null} logOut={function (): void {
+                throw new Error("Function not implemented.");
+            }} {...this.props} />
         )
     }
 }
