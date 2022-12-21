@@ -32,7 +32,7 @@ class MyPostContainer extends React.Component<propTypes> {
     }
 }
 
-let mapStateToProps = (state: stateType) => {
+let mapStateToProps = (state: stateType): mapStateTypes => {
     return{
         posts: state.profilePage.postData,
         currentMessageText: state.profilePage.newMessageArea,

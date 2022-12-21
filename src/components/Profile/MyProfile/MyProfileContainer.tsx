@@ -10,16 +10,39 @@ import withRouter from "../../../hoc/withRouter";
 import withAuthRedirect from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {Navigate} from "react-router-dom";
+import {stateType} from "../../../redux/redux-store";
+import {profileType} from "../../../types/types";
 
-class MyProfileContainer extends React.Component{
+type mapStateTypes = {
+    profile: profileType | null
+    userStatus: string
+}
+
+type mapDispatchTypes = {
+    getUser: (data: number) => void
+    getUserStatus: (data: number) => void
+    setUserStatus: (data: string) => void
+    setPhoto: (data: any) => void
+    setProfileData: (data: profileType) => void
+}
+
+type OwnPropsType = {
+    router: any
+    isAuth: boolean
+    loginId: number | null
+}
+
+type propsType = mapStateTypes & mapDispatchTypes & OwnPropsType
+
+class MyProfileContainer extends React.Component<propsType> {
 
     componentDidMount() {
         let userId = this.props.router.params.userId;
 
-        if(!userId){
-            if(!this.props.isAuth){
+        if (!userId) {
+            if (!this.props.isAuth) {
                 return (
-                    <Navigate to="/login" />
+                    <Navigate to="/login"/>
                 )
             }
             userId = this.props.loginId
@@ -28,11 +51,11 @@ class MyProfileContainer extends React.Component{
         this.props.getUser(userId)
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: propsType) {
         let userId = this.props.router.params.userId
 
         if (userId !== prevProps.router.params.userId) {
-            if(!userId){
+            if (!userId) {
                 userId = this.props.loginId
             }
             this.props.getUserStatus(userId)
@@ -43,7 +66,7 @@ class MyProfileContainer extends React.Component{
     render() {
         return (
             <MyProfile setPhoto={this.props.setPhoto}
-                       isOwner = {!this.props.router.params.userId}
+                       isOwner={!this.props.router.params.userId}
                        profile={this.props.profile}
                        userStatus={this.props.userStatus}
                        setUserStatus={this.props.setUserStatus}
@@ -52,7 +75,7 @@ class MyProfileContainer extends React.Component{
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: stateType): mapStateTypes => {
     return {
         profile: state.profilePage.profile,
         userStatus: state.profilePage.userStatus
@@ -62,9 +85,9 @@ let mapStateToProps = (state) => {
 export default compose(
     withRouter,
     withAuthRedirect,
-    connect(mapStateToProps,
+    connect<mapStateTypes, mapDispatchTypes, OwnPropsType, stateType>(mapStateToProps,
         {
-            setPhoto:setUserPhotoThunk,
+            setPhoto: setUserPhotoThunk,
             getUser: getUserThunkActionCreator,
             getUserStatus: getUserStatusThunkActionCreator,
             setUserStatus: setUserStatusThunkActionCreator,
