@@ -14,7 +14,7 @@ import {stateType} from "../../../redux/redux-store";
 import {profileType} from "../../../types/types";
 
 type mapStateTypes = {
-    profile: profileType | null
+    profile: profileType
     userStatus: string
 }
 
@@ -29,7 +29,7 @@ type mapDispatchTypes = {
 type OwnPropsType = {
     router: any
     isAuth: boolean
-    loginId: number | null
+    loginId: number
 }
 
 type propsType = mapStateTypes & mapDispatchTypes & OwnPropsType
@@ -71,6 +71,7 @@ class MyProfileContainer extends React.Component<propsType> {
                        userStatus={this.props.userStatus}
                        setUserStatus={this.props.setUserStatus}
                        setProfileData={this.props.setProfileData}/>
+            //<MyProfile {...this.props}/>
         )
     }
 }
@@ -79,7 +80,7 @@ let mapStateToProps = (state: stateType): mapStateTypes => {
     return {
         profile: state.profilePage.profile,
         userStatus: state.profilePage.userStatus
-    }
+    } as mapStateTypes
 }
 
 export default compose(

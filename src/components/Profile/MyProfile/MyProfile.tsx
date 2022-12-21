@@ -4,17 +4,37 @@ import Preloader from "../../Preloader/Preloader";
 import defaultAvatar from "../../../assets/images/avatar.jpg";
 import MyStatus from "./MyStatus";
 import ProfileDataForm from "./ProfileDataForm";
+import {profileType} from "../../../types/types";
 
-const MyProfile = (props) => {
+type myOwnPropsType = {
+    setPhoto: (data: any) => void
+    userStatus: string
+    setUserStatus: (data: string) => void
+    setProfileData: (data: profileType) => any
+    profile: profileType
+    isOwner: boolean
+}
+type ProfileDataType = {
+    editModeToggle: (data: any) => void
+    avatarHandler: (data: any) => void
+    isOwner?: boolean
+    profile: profileType
+    userStatus: string
+    setUserStatus: (data: string)=>void
+}
+type propsType = myOwnPropsType
+
+const MyProfile: React.FC<propsType> = (props) => {
     let[editMode, setEditMode] = useState(false)
 
-    const onSubmitFunction = (formData) => {
+    const onSubmitFunction = (formData:any) => {
         props.setProfileData(formData).then(()=>{
             setEditMode(false)
         })
     }
 
-    const avatarHandler = (e) => {
+    const avatarHandler = (e: any) => {
+        // @ts-ignore
         this.props.setPhoto(e.target.files[0])
     }
     const editModeToggle = () => {
@@ -35,7 +55,7 @@ const MyProfile = (props) => {
     }
 }
 
-const ProfileData = (props) => {
+const ProfileData: React.FC<ProfileDataType> = (props) => {
     return(
         <div className={style.MyProfile}>
             <div className={style.user_block}>

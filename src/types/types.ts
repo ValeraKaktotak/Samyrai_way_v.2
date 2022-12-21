@@ -25,6 +25,7 @@ export type profileType = {
     fullName: string
     contacts: contactsType
     photos: photosType
+    aboutMe?: string
 }
  //users-reducer
 const usersReducerInit = {
