@@ -17,7 +17,7 @@ type myOwnPropsType = {
 type ProfileDataType = {
     editModeToggle: (data: any) => void
     avatarHandler: (data: any) => void
-    isOwner?: boolean
+    isOwner: boolean
     profile: profileType
     userStatus: string
     setUserStatus: (data: string)=>void

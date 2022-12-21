@@ -1,6 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 
-const MyStatus = (props) => {
+type myOwnPropsType = {
+    value: string
+    setUserStatus: (data: string)=>void
+}
+type propsType = myOwnPropsType
+
+const MyStatus: React.FC<propsType> = (props) => {
     let[editMode, setEditMode] = useState(false)
     let[statusValue, setStatusValue] = useState(props.value)
 
@@ -16,7 +22,7 @@ const MyStatus = (props) => {
         props.setUserStatus(statusValue)
     }
 
-    const changeStatus = (e) => {
+    const changeStatus = (e:ChangeEvent<HTMLInputElement>) => {
         setStatusValue(e.currentTarget.value)
     }
 
