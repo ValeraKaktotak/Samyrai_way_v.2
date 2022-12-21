@@ -5,11 +5,18 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {maxLength200, required} from "../../../helpers/validators";
 import {Element} from "../../commons/FormsControls/FormsControls";
+import {profileType} from "../../../types/types";
 
 const Input = Element("input");
 const Textarea = Element("textarea");
 
-const ProfileDataForm = (props) => {
+type propsType = {
+    profile: any
+    handleSubmit: any
+    error: any
+}
+
+const ProfileDataForm: React.FC<any> = (props) => {
     return(
         <form onSubmit={props.handleSubmit} className={style.MyProfile}>
             <div className={style.user_block}>
