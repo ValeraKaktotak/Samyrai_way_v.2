@@ -2,10 +2,15 @@ import React from 'react'
 import style from './UserDialog.module.css';
 import {NavLink} from "react-router-dom";
 
-const UserDialog = (prop) => {
-    return(
+type propsType = {
+    id: number
+    name: string
+}
+
+const UserDialog = (prop: propsType) => {
+    return (
         <div className={style.user_dialog}>
-            <NavLink to={"/dialogs/"+prop.id}>{prop.name}</NavLink>
+            <NavLink to={"/dialogs/" + prop.id}>{prop.name}</NavLink>
         </div>
     );
 }

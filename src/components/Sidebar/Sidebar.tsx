@@ -3,7 +3,7 @@ import style from './Sidebar.module.css';
 import {NavLink} from "react-router-dom";
 import FriendsContainer from "./Friends/FriendsContainer";
 
-const Sidebar = () => {
+const Sidebar:React.FC<any> = () => {
     return (
         <nav className={style.sidebar}>
             <ul>

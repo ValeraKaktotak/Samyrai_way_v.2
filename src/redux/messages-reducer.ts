@@ -1,3 +1,9 @@
+import {
+    messagesReducerDialogDataType,
+    messagesReducerMessageDataType,
+    messagesReducerMessageType
+} from "../types/types";
+
 const addMessageActionCreatorConst = 'ADD-MESSAGE';
 const changeMessageTextActionCreatorConst = 'CHANGE-MESSAGE-TEXT';
 
@@ -6,40 +12,19 @@ type changeMessageTextActionType = {
     type: typeof changeMessageTextActionCreatorConst
     newText: string
 }
-export const changeMessageTextActionCreator = (text: string): changeMessageTextActionType => {
-    return {
-        type: changeMessageTextActionCreatorConst,
-        newText: text
-    }
-}
 
-type addMessageActionType = {
+export type addMessageActionType = {
     type: typeof addMessageActionCreatorConst
     message: string
 }
-type messageType = {
-    userMessage: string
-}
-export const addMessageActionCreator = (message: messageType): addMessageActionType => {
+
+export const addMessageActionCreator = (message: messagesReducerMessageType): addMessageActionType => {
     return {
         type: addMessageActionCreatorConst,
         message: message.userMessage
     }
 }
 
-type dialogDataType = {
-    id: number
-    name: string
-}
-type messageDataType = {
-    id: number
-    message: string
-}
-// type messagesReducerInitType = {
-//     dialogData: Array<dialogDataType>
-//     messageData: Array<messageDataType>
-//     newMessageDataArea: string
-// }
 const messagesReducerInit = {
     dialogData: [
         {id: 1, name: 'Valera'},
@@ -47,14 +32,14 @@ const messagesReducerInit = {
         {id: 3, name: 'Sveta'},
         {id: 4, name: 'Marina'},
         {id: 5, name: 'Lena'},
-    ] as Array<dialogDataType>,
+    ] as Array<messagesReducerDialogDataType>,
     messageData: [
         {id: 1, message: 'Hi:)'},
         {id: 2, message: 'hi hi hi:)'},
         {id: 3, message: 'Hello!)))'},
         {id: 4, message: 'How are you?)'},
         {id: 5, message: 'Are you ok?'},
-    ] as Array<messageDataType>,
+    ] as Array<messagesReducerMessageDataType>,
     newMessageDataArea: '' as string
 }
 type messagesReducerInitType = typeof messagesReducerInit

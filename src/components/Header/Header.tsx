@@ -1,7 +1,15 @@
 import React from 'react';
 import style from './Header.module.css';
 import {NavLink} from "react-router-dom";
-const Header = (props) => {
+
+type propsType = {
+    auth: boolean
+    userId: number | null
+    loginName: string | null
+    logOut: () => void
+}
+
+const Header: React.FC<propsType> = (props) => {
     return (
         <header className={style.header}>
             <img src="https://assets.turbologo.ru/blog/ru/2019/04/18165419/oracle.png" alt="sky"/>

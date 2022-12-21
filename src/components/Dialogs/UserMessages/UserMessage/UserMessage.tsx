@@ -1,7 +1,11 @@
 import React from 'react'
 import style from './UserMessage.module.css';
 
-const UserMessage = (props) => {
+type propsType = {
+    message: string
+}
+
+const UserMessage:React.FC<propsType> = (props) => {
     return(
         <div className={style.user_message}>
             {props.message}

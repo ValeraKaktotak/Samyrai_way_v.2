@@ -9,13 +9,12 @@ const setUserStatusActionCreatorConst = 'SET-STATUS';
 const setPhotoActionCreatorConst = 'SET-PHOTO';
 
 
-type addPostActionCreatorType = {
+export type addPostActionCreatorType = {
     type: typeof addPostActionCreatorConst
     message: string
 }
 export const addPostActionCreator = (message: string): addPostActionCreatorType => {
     return {type: addPostActionCreatorConst, message: message}
-    //return {type: addPostActionCreatorConst, message: message.myMessage}
 }
 
 type setProfileActionCreatorType = {

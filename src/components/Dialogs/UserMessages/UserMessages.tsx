@@ -4,26 +4,33 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {Textarea} from "../../commons/FormsControls/FormsControls";
 import {maxLength200, required} from "../../../helpers/validators";
+import {messagesReducerMessageDataType, messagesReducerMessageType} from "../../../types/types";
 
-const UserMessages = (props) => {
+type propsType = {
+    messages: Array<messagesReducerMessageDataType>
+    onSendMessage: (message:messagesReducerMessageType) => void
+}
+
+const UserMessages = (props: propsType) => {
 
     const messages = props.messages.map(m => <UserMessage key={m.id} message={m.message}/>);
 
-    const sendMessage = (data) => {
+    const sendMessage = (data: any) => {
         props.onSendMessage(data);
     }
     return (
         <div className={style.user_messages}>
             {messages}
-            <WithReduxForm onSubmit={sendMessage} />
+            <WithReduxForm onSubmit={sendMessage}/>
         </div>
     );
 }
 
-const UserMessagesForm = (props) =>{
-    return(
+const UserMessagesForm = (props: any) => {
+    return (
         <form onSubmit={props.handleSubmit}>
-            <Field name="userMessage" component={Textarea} placeholder='Enter your message' validate={[required, maxLength200]} />
+            <Field name="userMessage" component={Textarea} placeholder='Enter your message'
+                   validate={[required, maxLength200]}/>
             <div>
                 <button>Send</button>
             </div>

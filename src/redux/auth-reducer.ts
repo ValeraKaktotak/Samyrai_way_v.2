@@ -36,7 +36,7 @@ const authReducerInit = {
     login: null as string |null,
     isLogged: false as boolean,
 }
-type authReducerInitType = typeof authReducerInit
+export type authReducerInitType = typeof authReducerInit
 
 const authReducer = (state = authReducerInit, action:setAuthActionType):authReducerInitType => {
     switch (action.type) {

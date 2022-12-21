@@ -25,6 +25,7 @@ export type profileType = {
     fullName: string
     contacts: contactsType
     photos: photosType
+    aboutMe?: string
 }
  //users-reducer
 const usersReducerInit = {
@@ -47,4 +48,17 @@ export type usersType = {
     status: null | string
     followed: boolean
     location?: string
+}
+
+//messages-reducer
+export type messagesReducerDialogDataType = {
+    id: number
+    name: string
+}
+export type messagesReducerMessageDataType = {
+    id: number
+    message: string
+}
+export type messagesReducerMessageType = {
+    userMessage: string
 }

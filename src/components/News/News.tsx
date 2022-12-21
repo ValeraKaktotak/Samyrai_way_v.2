@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import style from './News.module.css';
 
-const News = (props) => {
+const News = () => {
     const [count, setCount] = useState(0);
     const objA ={
         one: "1",
