@@ -13,11 +13,10 @@ type changeMessageTextActionType = {
     newText: string
 }
 
-export type addMessageActionType = {
+type addMessageActionType = {
     type: typeof addMessageActionCreatorConst
     message: string
 }
-
 export const addMessageActionCreator = (message: messagesReducerMessageType): addMessageActionType => {
     return {
         type: addMessageActionCreatorConst,
@@ -25,6 +24,7 @@ export const addMessageActionCreator = (message: messagesReducerMessageType): ad
     }
 }
 
+type actionTypes = changeMessageTextActionType | addMessageActionType
 const messagesReducerInit = {
     dialogData: [
         {id: 1, name: 'Valera'},
@@ -44,7 +44,7 @@ const messagesReducerInit = {
 }
 type messagesReducerInitType = typeof messagesReducerInit
 
-const messagesReducer = (state = messagesReducerInit, action: changeMessageTextActionType | addMessageActionType):messagesReducerInitType => {
+const messagesReducer = (state = messagesReducerInit, action: actionTypes):messagesReducerInitType => {
     if (action.type === changeMessageTextActionCreatorConst) {
         return {
             ...state,
