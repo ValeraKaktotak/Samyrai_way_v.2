@@ -1,5 +1,7 @@
 import {FollowAPI, UsersAPI} from "../api/api";
-import { usersType } from "../types/types";
+import {usersType} from "../types/types";
+import {ThunkAction} from "redux-thunk";
+import {stateType} from "./redux-store";
 
 const followActionCreatorConst = 'FOLLOW';
 const unfollowActionCreatorConst = 'UNFOLLOW';
@@ -68,19 +70,19 @@ export const followingProcessActionCreator = (toggleStatus: boolean, userId: num
 }
 
 // thunk action creators
-export const getUsersThunkActionCreator = (usersCurrentPage: number, usersCountOnPage: number) => {
-    return (dispatch: any) =>{
+export const getUsersThunkActionCreator = (usersCurrentPage: number, usersCountOnPage: number): thunkTypes => {
+    return (dispatch, getState) => {
         dispatch(preloaderActionCreator(true))
         UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
-            .then((response: any)=>{
+            .then((response: any) => {
                 dispatch(addUsersActionCreator(response.items))
                 dispatch(addUserCountActionCreator(response.totalCount))
                 dispatch(preloaderActionCreator(false))
             })
     }
 }
-export const changePagesThunkActionCreator = (usersCurrentPage: number, usersCountOnPage: number) => {
-    return (dispatch: any) => {
+export const changePagesThunkActionCreator = (usersCurrentPage: number, usersCountOnPage: number): thunkTypes => {
+    return (dispatch) => {
         dispatch(preloaderActionCreator(true))
         dispatch(changeUsersCurrentPageActionCreator(usersCurrentPage))
         UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
@@ -91,8 +93,8 @@ export const changePagesThunkActionCreator = (usersCurrentPage: number, usersCou
             })
     }
 }
-export const unfollowThunkActionCreator = (usersId: number) => {
-    return (dispatch: any) => {
+export const unfollowThunkActionCreator = (usersId: number): thunkTypes => {
+    return (dispatch) => {
         dispatch(followingProcessActionCreator(true, usersId))
         FollowAPI.unfollowUser(usersId)
             .then((response: any) => {
@@ -103,8 +105,8 @@ export const unfollowThunkActionCreator = (usersId: number) => {
             })
     }
 }
-export const followThunkActionCreator = (usersId: number) => {
-    return (dispatch: any) => {
+export const followThunkActionCreator = (usersId: number): thunkTypes => {
+    return (dispatch) => {
         dispatch(followingProcessActionCreator(true, usersId))
         FollowAPI.followUser(usersId)
             .then((response: any) => {
@@ -119,15 +121,28 @@ export const followThunkActionCreator = (usersId: number) => {
 
 const usersReducerInit = {
     users: [] as Array<usersType> | [],
-    usersCountOnPage: 10 as number ,
+    usersCountOnPage: 10 as number,
     usersCurrentPage: 1 as number,
     usersCount: 0 as number,
     isLoader: false as boolean,
     isFollowingProcess: [] as Array<number>
 }
 export type usersReducerInitType = typeof usersReducerInit
-type actionTypes = followActionCreatorType | unfollowActionCreatorType | addUsersActionCreatorType | addUserCountActionCreatorType |
-    changeUsersCurrentPageActionCreatorType | preloaderActionCreatorType | followingProcessActionCreatorType
+type actionTypes =
+    followActionCreatorType
+    | unfollowActionCreatorType
+    | addUsersActionCreatorType
+    | addUserCountActionCreatorType
+    | changeUsersCurrentPageActionCreatorType
+    | preloaderActionCreatorType
+    | followingProcessActionCreatorType
+
+type thunkTypes = ThunkAction<
+    void,
+    stateType,
+    unknown,
+    actionTypes
+>
 
 const usersReducer = (state = usersReducerInit, action: actionTypes): usersReducerInitType => {
     switch (action.type) {
