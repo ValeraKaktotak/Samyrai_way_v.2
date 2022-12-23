@@ -1,5 +1,5 @@
 import {LoginApi} from "../api/api";
-import {logOutHeaderAuthThunkActionCreator, AuthThunkActionCreator} from "./auth-reducer";
+import {AuthThunkActionCreator} from "./auth-reducer";
 import {stopSubmit} from "redux-form";
 
 const captchaActionCreatorConst = 'CAPTCHA-URL';
@@ -33,20 +33,10 @@ export const loginUserThunkActionCreator = (email:string, password:string, remem
         }
     }
 }
-
 export const captchaThunk = () => {
     return async (dispatch: any) => {
         let captchaUrl = await LoginApi.captcha()
         dispatch(captchaActionCreator(captchaUrl))
-    }
-}
-
-export const logOutUserThunkActionCreator = () => {
-    return async (dispatch: any) => {
-        let logOutResponse = await LoginApi.logOut()
-        if (logOutResponse.resultCode === 0) {
-            dispatch(logOutHeaderAuthThunkActionCreator())
-        }
     }
 }
 
@@ -58,6 +48,7 @@ const loginReducerInit: loginReducerInitType = {
     loginData: [],
     captcha: null
 }
+
 const loginReducer = (state = loginReducerInit, action:captchaActionCreatorType) => {
     switch (action.type) {
         case captchaActionCreatorConst:

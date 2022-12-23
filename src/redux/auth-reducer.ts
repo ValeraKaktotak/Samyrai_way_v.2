@@ -1,4 +1,4 @@
-import {AuthAPI} from "../api/api";
+import {AuthAPI, LoginApi} from "../api/api";
 const setAuthActionCreatorConst = 'SET-LOGIN-AUTH';
 
 type setAuthActionType = {
@@ -20,6 +20,15 @@ export const AuthThunkActionCreator = () => {
         if (response.resultCode === 0) {
             let {id, email, login} = response.data;
             dispatch(setAuthActionCreator(id, email, login, true))
+        }
+    }
+}
+
+export const logOutUserThunkActionCreator = () => {
+    return async (dispatch: any) => {
+        let logOutResponse = await LoginApi.logOut()
+        if (logOutResponse.resultCode === 0) {
+            dispatch(logOutHeaderAuthThunkActionCreator())
         }
     }
 }
