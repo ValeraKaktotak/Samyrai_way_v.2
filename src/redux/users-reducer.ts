@@ -28,10 +28,10 @@ export const unfollowActionCreator = (userId: number): unfollowActionCreatorType
 
 type addUsersActionCreatorType = {
     type: typeof addUsersActionCreatorConst
-    users: usersType
+    newUsers: Array<usersType>
 }
-export const addUsersActionCreator = (users: usersType): addUsersActionCreatorType => {
-    return {type: addUsersActionCreatorConst, users}
+export const addUsersActionCreator = (newUsers: Array<usersType>): addUsersActionCreatorType => {
+    return {type: addUsersActionCreatorConst, newUsers}
 }
 
 type addUserCountActionCreatorType = {
@@ -118,7 +118,7 @@ export const followThunkActionCreator = (usersId: number) => {
 
 
 const usersReducerInit = {
-    users: [] as Array<usersType>,
+    users: [] as Array<usersType> | [],
     usersCountOnPage: 10 as number ,
     usersCurrentPage: 1 as number,
     usersCount: 0 as number,
@@ -126,8 +126,10 @@ const usersReducerInit = {
     isFollowingProcess: [] as Array<number>
 }
 export type usersReducerInitType = typeof usersReducerInit
+type actionTypes = followActionCreatorType | unfollowActionCreatorType | addUsersActionCreatorType | addUserCountActionCreatorType |
+    changeUsersCurrentPageActionCreatorType | preloaderActionCreatorType | followingProcessActionCreatorType
 
-const usersReducer = (state = usersReducerInit, action: any): usersReducerInitType => {
+const usersReducer = (state = usersReducerInit, action: actionTypes): usersReducerInitType => {
     switch (action.type) {
         case followActionCreatorConst:
             return {
@@ -151,7 +153,7 @@ const usersReducer = (state = usersReducerInit, action: any): usersReducerInitTy
             }
         case addUsersActionCreatorConst:
             return {
-                ...state, users: [...action.users]
+                ...state, users: [...action.newUsers]
             }
         case addUsersCountActionCreatorConst:
             return {
