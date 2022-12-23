@@ -1,4 +1,5 @@
 import {FollowAPI, UsersAPI} from "../api/api";
+import { usersType } from "../types/types";
 
 const followActionCreatorConst = 'FOLLOW';
 const unfollowActionCreatorConst = 'UNFOLLOW';
@@ -115,18 +116,7 @@ export const followThunkActionCreator = (usersId: number) => {
     }
 }
 
-type usersPhotosType = {
-    small: null | string
-    large: null | string
-}
-type usersType = {
-    name: string
-    id: number
-    photos: usersPhotosType
-    status: null | string
-    followed: boolean
 
-}
 const usersReducerInit = {
     users: [] as Array<usersType>,
     usersCountOnPage: 10 as number ,
@@ -135,7 +125,8 @@ const usersReducerInit = {
     isLoader: false as boolean,
     isFollowingProcess: [] as Array<number>
 }
-type usersReducerInitType = typeof usersReducerInit
+export type usersReducerInitType = typeof usersReducerInit
+
 const usersReducer = (state = usersReducerInit, action: any): usersReducerInitType => {
     switch (action.type) {
         case followActionCreatorConst:
