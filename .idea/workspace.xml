@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ef9b0e7b-f874-42ed-b45e-177b6c94e2d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/users-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/users-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/profile-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/profile-reducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +101,9 @@
       <workItem from="1671502757141" duration="5620000" />
       <workItem from="1671609952905" duration="9261000" />
       <workItem from="1671626481393" duration="4501000" />
-      <workItem from="1671796523039" duration="12451000" />
+      <workItem from="1671796523039" duration="12800000" />
+      <workItem from="1671814655023" duration="343000" />
+      <workItem from="1671818991584" duration="1796000" />
     </task>
     <servers />
   </component>
