@@ -1,6 +1,8 @@
 import {LoginApi} from "../api/api";
-import {logOutHeaderAuthThunkActionCreator, AuthThunkActionCreator} from "./auth-reducer";
+import {AuthThunkActionCreator} from "./auth-reducer";
 import {stopSubmit} from "redux-form";
+import {ThunkAction} from "redux-thunk";
+import {stateType} from "./redux-store";
 
 const captchaActionCreatorConst = 'CAPTCHA-URL';
 
@@ -18,7 +20,12 @@ export const captchaActionCreator = (captcha:captchaType):captchaActionCreatorTy
     }
 }
 
-export const loginUserThunkActionCreator = (email:string, password:string, rememberMe:boolean, captcha:string) => {
+export const loginUserThunkActionCreator = (email:string, password:string, rememberMe:boolean, captcha:string):ThunkAction<
+    Promise<void>,
+    stateType,
+    unknown,
+    captchaActionCreatorType
+> => {
     return async (dispatch: any) => {
         let loginResponse = await LoginApi.login(email, password, rememberMe, captcha)
         if (loginResponse.resultCode === 0) {
@@ -33,20 +40,15 @@ export const loginUserThunkActionCreator = (email:string, password:string, remem
         }
     }
 }
-
-export const captchaThunk = () => {
-    return async (dispatch: any) => {
+export const captchaThunk = ():ThunkAction<
+    Promise<void>,
+    stateType,
+    unknown,
+    captchaActionCreatorType
+> => {
+    return async (dispatch) => {
         let captchaUrl = await LoginApi.captcha()
         dispatch(captchaActionCreator(captchaUrl))
-    }
-}
-
-export const logOutUserThunkActionCreator = () => {
-    return async (dispatch: any) => {
-        let logOutResponse = await LoginApi.logOut()
-        if (logOutResponse.resultCode === 0) {
-            dispatch(logOutHeaderAuthThunkActionCreator())
-        }
     }
 }
 
@@ -58,6 +60,7 @@ const loginReducerInit: loginReducerInitType = {
     loginData: [],
     captcha: null
 }
+
 const loginReducer = (state = loginReducerInit, action:captchaActionCreatorType) => {
     switch (action.type) {
         case captchaActionCreatorConst:

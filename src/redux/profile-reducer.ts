@@ -2,6 +2,8 @@ import {ProfileAPI} from "../api/api";
 import {AuthThunkActionCreator} from "./auth-reducer";
 import {stopSubmit} from "redux-form";
 import {postDataType, contactsType, photosType, profileType} from "../types/types"
+import {ThunkAction} from "redux-thunk";
+import {stateType} from "./redux-store";
 
 const addPostActionCreatorConst = 'ADD-POST';
 const setProfileActionCreatorConst = 'SET-PROFILE';
@@ -37,27 +39,24 @@ type setPhotoActionCreatorType = {
     type: typeof setPhotoActionCreatorConst
     photo: photosType
 }
-export const setPhotoActionCreator = (photo: photosType ): setPhotoActionCreatorType => {
+export const setPhotoActionCreator = (photo: photosType): setPhotoActionCreatorType => {
     return {type: setPhotoActionCreatorConst, photo}
 }
 
-//ассинронный запрос async-await
-export const getUserThunkActionCreator = (userId:number) => {
-    return async (dispatch:any) => {
+export const getUserThunkActionCreator = (userId: number): thunkTypes => {
+    return async (dispatch) => {
         let getUser = await ProfileAPI.getUser(userId)
         dispatch(setProfileActionCreator(getUser))
     }
 }
-//ассинронный запрос async-await
-export const setUserPhotoThunk = (file: any) => {
-    return async (dispatch:any) => {
+export const setUserPhotoThunk = (file: any): thunkTypes => {
+    return async (dispatch) => {
         let setPhoto = await ProfileAPI.setPhoto(file)
         dispatch(setPhotoActionCreator(setPhoto))
     }
 }
-//ассинронный запрос async-await
-export const setProfileDataThunk = (profile: profileType) => {
-    return async (dispatch:any) => {
+export const setProfileDataThunk = (profile: profileType): thunkTypes => {
+    return async (dispatch: any) => {
         let setProfile = await ProfileAPI.setProfile(profile)
         if (setProfile.resultCode === 0) {
             dispatch(setProfileActionCreator(profile))
@@ -69,23 +68,33 @@ export const setProfileDataThunk = (profile: profileType) => {
         }
     }
 }
-//ассинхронный запрос .then
-export const getUserStatusThunkActionCreator = (userId: number) => {
-    return async (dispatch:any) => {
+export const getUserStatusThunkActionCreator = (userId: number): thunkTypes => {
+    return async (dispatch: any) => {
         let getUserStatus = await ProfileAPI.getUserStatus(userId)
         dispatch(setUserStatusActionCreator(getUserStatus))
     }
 }
-
-//ассинхронный запрос .then
-export const setUserStatusThunkActionCreator = (status: string) => {
-    return async (dispatch:any) => {
+export const setUserStatusThunkActionCreator = (status: string): thunkTypes=> {
+    return async (dispatch) => {
         let setUserStatus = await ProfileAPI.setUserStatus(status)
-        if(setUserStatus.resultCode === 0){
+        if (setUserStatus.resultCode === 0) {
             dispatch(setUserStatusActionCreator(status))
         }
     }
 }
+
+type thunkTypes = ThunkAction<
+    Promise<void>,
+    stateType,
+    unknown,
+    actionTypes
+>
+
+type actionTypes =
+    addPostActionCreatorType
+    | setProfileActionCreatorType
+    | setUserStatusActionCreatorType
+    | setPhotoActionCreatorType
 
 const profileReducerInit = {
     postData: [
@@ -107,14 +116,14 @@ const profileReducerInit = {
             likes: 15,
             avatar: 'https://meragor.com/files/styles//ava_800_800_wm/avto-bmv_bmw-fon-transport-41424.jpg'
         },
-    ]as Array<postDataType> ,
+    ] as Array<postDataType>,
     newMessageArea: '' as string,
     profile: null as profileType | null,
     userStatus: '' as string
 }
 type profileReducerInitType = typeof profileReducerInit
 
-const profileReducer = (state = profileReducerInit, action: any):profileReducerInitType => {
+const profileReducer = (state = profileReducerInit, action: actionTypes): profileReducerInitType => {
     switch (action.type) {
         case addPostActionCreatorConst:
             let newPostObject = {
@@ -140,7 +149,7 @@ const profileReducer = (state = profileReducerInit, action: any):profileReducerI
         case setPhotoActionCreatorConst:
             return {
                 ...state,
-                profile: {...state.profile, photos: action.data.photos} as profileType
+                profile: {...state.profile, photos: action.photo} as profileType
             }
     }
     return state

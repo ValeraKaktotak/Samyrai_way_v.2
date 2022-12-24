@@ -1,4 +1,6 @@
 import {AuthThunkActionCreator} from "./auth-reducer";
+import {ThunkAction} from "redux-thunk";
+import {stateType} from "./redux-store";
 
 const initializationActionCreatorConst = 'INITIALIZATION';
 
@@ -14,8 +16,13 @@ export const initializationActionCreator = (): initializationActionCreatorType =
 }
 
 // thunk action creators
-export const initializationAppThunkActionCreator = () => {
-    return (dispatch: any) => {
+export const initializationAppThunkActionCreator = ():ThunkAction<
+    void,
+    stateType,
+    unknown,
+    initializationActionCreatorType
+> => {
+    return (dispatch) => {
 
         let authPromise = dispatch(AuthThunkActionCreator())
 
@@ -32,7 +39,7 @@ type appReducerInitType = {
 const appReducerInit: appReducerInitType = {
     initialized: false
 }
-const appReducer = (state = appReducerInit, action: any): appReducerInitType => {
+const appReducer = (state = appReducerInit, action: initializationActionCreatorType): appReducerInitType => {
     switch (action.type) {
         case initializationActionCreatorConst:
             return {
