@@ -40,8 +40,13 @@ export const loginUserThunkActionCreator = (email:string, password:string, remem
         }
     }
 }
-export const captchaThunk = () => {
-    return async (dispatch: any) => {
+export const captchaThunk = ():ThunkAction<
+    Promise<void>,
+    stateType,
+    unknown,
+    captchaActionCreatorType
+> => {
+    return async (dispatch) => {
         let captchaUrl = await LoginApi.captcha()
         dispatch(captchaActionCreator(captchaUrl))
     }

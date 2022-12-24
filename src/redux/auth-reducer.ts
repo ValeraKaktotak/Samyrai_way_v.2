@@ -1,6 +1,8 @@
 import {AuthAPI, LoginApi} from "../api/api";
-const setAuthActionCreatorConst = 'SET-LOGIN-AUTH';
+import {ThunkAction} from "redux-thunk";
+import {stateType} from "./redux-store";
 
+const setAuthActionCreatorConst = 'SET-LOGIN-AUTH';
 type setAuthActionType = {
     type: typeof setAuthActionCreatorConst,
     UserData: authReducerInitType
@@ -14,8 +16,13 @@ export const setAuthActionCreator = (id: number | null, email: string | null, lo
     }
 }
 
-export const AuthThunkActionCreator = () => {
-    return async (dispatch: any) => {
+export const AuthThunkActionCreator = ():ThunkAction<
+    Promise<void>,
+    stateType,
+    unknown,
+    setAuthActionType
+> => {
+    return async (dispatch) => {
         let response = await AuthAPI.authMe();
         if (response.resultCode === 0) {
             let {id, email, login} = response.data;
@@ -24,8 +31,13 @@ export const AuthThunkActionCreator = () => {
     }
 }
 
-export const logOutUserThunkActionCreator = () => {
-    return async (dispatch: any) => {
+export const logOutUserThunkActionCreator = ():ThunkAction<
+    Promise<void>,
+    stateType,
+    unknown,
+    setAuthActionType
+> => {
+    return async (dispatch) => {
         let logOutResponse = await LoginApi.logOut()
         if (logOutResponse.resultCode === 0) {
             dispatch(logOutHeaderAuthThunkActionCreator())
@@ -33,8 +45,13 @@ export const logOutUserThunkActionCreator = () => {
     }
 }
 
-export const logOutHeaderAuthThunkActionCreator = () => {
-    return (dispatch: any) => {
+export const logOutHeaderAuthThunkActionCreator = ():ThunkAction<
+    void,
+    stateType,
+    unknown,
+    setAuthActionType
+> => {
+    return (dispatch) => {
         dispatch(setAuthActionCreator(null, null, null, false))
     }
 }
