@@ -80,22 +80,39 @@ export const AuthAPI = {
     }
 }
 
+export enum setUserStatusResultCodeEnum {
+    success = 0,
+    error = 1
+}
+type profileSetUserStatusType = {
+    resultCode: setUserStatusResultCodeEnum
+    messages: Array<string>,
+    data: any
+}
+type profileSetPhotoType = {
+    resultCode: setUserStatusResultCodeEnum
+    messages: Array<string>,
+    data: {
+        small: string | null
+        large: string | null
+    }
+}
 export const ProfileAPI = {
     getUser (userId:number){
         return(
-            axiosCreeds.get(`profile/${userId}`)
+            axiosCreeds.get<profileType>(`profile/${userId}`)
                 .then(response=>response.data)
         )
     },
     getUserStatus (userId:number){
         return(
-            axiosCreeds.get(`/profile/status/${userId}`)
+            axiosCreeds.get<string>(`/profile/status/${userId}`)
                 .then(response=>response.data)
         )
     },
     setUserStatus (userStatus: string){
         return (
-            axiosCreeds.put(`/profile/status`, {
+            axiosCreeds.put<profileSetUserStatusType>(`/profile/status`, {
                 status: userStatus
             })
                 .then(response=>response.data)
@@ -106,7 +123,7 @@ export const ProfileAPI = {
             profile.lookingForAJob = false;
         }
         return (
-            axiosCreeds.put(`/profile`, profile)
+            axiosCreeds.put<profileSetUserStatusType>(`/profile`, profile)
                 .then(response=>response.data)
         )
     },
@@ -114,7 +131,7 @@ export const ProfileAPI = {
         let formData = new FormData();
         formData.append("image", file);
         return (
-            axiosCreeds.put(`/profile/photo`, formData, {
+            axiosCreeds.put<profileSetPhotoType>(`/profile/photo`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
