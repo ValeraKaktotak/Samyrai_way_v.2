@@ -141,10 +141,31 @@ export const ProfileAPI = {
     }
 }
 
+export enum loginResultCodeEnum {
+    success = 0,
+    error = 1,
+    captcha = 10
+}
+export enum logOutResultCodeEnum {
+    success = 0,
+    error = 1
+}
+type loginType = {
+    resultCode: loginResultCodeEnum
+    messages: Array<string>
+    data: {
+        userId: number
+    }
+}
+type logOutType = {
+    resultCode: logOutResultCodeEnum
+    messages: Array<string>
+    data: {}
+}
 export const LoginApi = {
     login (email: string, password:string, rememberMe = false, captcha:string){
         return(
-            axiosCreeds.post(`/auth/login`, {
+            axiosCreeds.post<loginType>(`/auth/login`, {
                 email,
                 password,
                 rememberMe,
@@ -155,13 +176,13 @@ export const LoginApi = {
     },
     logOut (){
         return(
-            axiosCreeds.delete(`/auth/login`)
+            axiosCreeds.delete<logOutType>(`/auth/login`)
                 .then(response=>response.data)
         )
     },
     captcha (){
         return(
-            axiosCreeds.get(`/security/get-captcha-url`)
+            axiosCreeds.get<string>(`/security/get-captcha-url`)
                 .then(response=>response.data)
         )
     }

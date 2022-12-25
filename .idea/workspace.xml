@@ -7,7 +7,7 @@
     <list default="true" id="ef9b0e7b-f874-42ed-b45e-177b6c94e2d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/profile-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/profile-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/login-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/login-reducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +108,7 @@
       <workItem from="1671877375094" duration="3548000" />
       <workItem from="1671890796144" duration="2514000" />
       <workItem from="1671967425461" duration="2865000" />
-      <workItem from="1671999992791" duration="7233000" />
+      <workItem from="1671999992791" duration="8596000" />
     </task>
     <servers />
   </component>
