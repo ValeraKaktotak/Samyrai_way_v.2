@@ -5,15 +5,11 @@ import {ThunkAction} from "redux-thunk";
 import {stateType} from "./redux-store";
 
 const captchaActionCreatorConst = 'CAPTCHA-URL';
-
-type captchaType = {
-    url: string
-}
 type captchaActionCreatorType = {
     type: typeof captchaActionCreatorConst
-    captcha: captchaType
+    captcha: string
 }
-export const captchaActionCreator = (captcha:captchaType):captchaActionCreatorType => {
+export const captchaActionCreator = (captcha:string):captchaActionCreatorType => {
     return {
         type: captchaActionCreatorConst,
         captcha
@@ -66,7 +62,7 @@ const loginReducer = (state = loginReducerInit, action:captchaActionCreatorType)
         case captchaActionCreatorConst:
             return {
                 ...state,
-                captcha: action.captcha.url
+                captcha: action.captcha
             }
     }
     return state

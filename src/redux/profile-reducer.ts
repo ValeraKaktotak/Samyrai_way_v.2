@@ -1,4 +1,4 @@
-import {ProfileAPI} from "../api/api";
+import {ProfileAPI, setUserStatusResultCodeEnum} from "../api/api";
 import {AuthThunkActionCreator} from "./auth-reducer";
 import {stopSubmit} from "redux-form";
 import {postDataType, contactsType, photosType, profileType} from "../types/types"
@@ -52,13 +52,13 @@ export const getUserThunkActionCreator = (userId: number): thunkTypes => {
 export const setUserPhotoThunk = (file: any): thunkTypes => {
     return async (dispatch) => {
         let setPhoto = await ProfileAPI.setPhoto(file)
-        dispatch(setPhotoActionCreator(setPhoto))
+        dispatch(setPhotoActionCreator(setPhoto.data))
     }
 }
 export const setProfileDataThunk = (profile: profileType): thunkTypes => {
     return async (dispatch: any) => {
         let setProfile = await ProfileAPI.setProfile(profile)
-        if (setProfile.resultCode === 0) {
+        if (setProfile.resultCode === setUserStatusResultCodeEnum.success) {
             dispatch(setProfileActionCreator(profile))
         } else {
             let message = setProfile.messages.length > 0 ? setProfile.messages[0] : "Some error";
@@ -69,7 +69,7 @@ export const setProfileDataThunk = (profile: profileType): thunkTypes => {
     }
 }
 export const getUserStatusThunkActionCreator = (userId: number): thunkTypes => {
-    return async (dispatch: any) => {
+    return async (dispatch) => {
         let getUserStatus = await ProfileAPI.getUserStatus(userId)
         dispatch(setUserStatusActionCreator(getUserStatus))
     }
@@ -77,7 +77,7 @@ export const getUserStatusThunkActionCreator = (userId: number): thunkTypes => {
 export const setUserStatusThunkActionCreator = (status: string): thunkTypes=> {
     return async (dispatch) => {
         let setUserStatus = await ProfileAPI.setUserStatus(status)
-        if (setUserStatus.resultCode === 0) {
+        if (setUserStatus.resultCode === setUserStatusResultCodeEnum.success) {
             dispatch(setUserStatusActionCreator(status))
         }
     }

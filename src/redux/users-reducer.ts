@@ -1,4 +1,4 @@
-import {FollowAPI, UsersAPI} from "../api/api";
+import {FollowAPI, followResultCodeEnum, UsersAPI} from "../api/api";
 import {usersType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {stateType} from "./redux-store";
@@ -71,10 +71,10 @@ export const followingProcessActionCreator = (toggleStatus: boolean, userId: num
 
 // thunk action creators
 export const getUsersThunkActionCreator = (usersCurrentPage: number, usersCountOnPage: number): thunkTypes => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(preloaderActionCreator(true))
         UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
-            .then((response: any) => {
+            .then((response) => {
                 dispatch(addUsersActionCreator(response.items))
                 dispatch(addUserCountActionCreator(response.totalCount))
                 dispatch(preloaderActionCreator(false))
@@ -97,8 +97,8 @@ export const unfollowThunkActionCreator = (usersId: number): thunkTypes => {
     return (dispatch) => {
         dispatch(followingProcessActionCreator(true, usersId))
         FollowAPI.unfollowUser(usersId)
-            .then((response: any) => {
-                if (response.resultCode === 0) {
+            .then((response) => {
+                if (response.resultCode == followResultCodeEnum.success) {
                     dispatch(unfollowActionCreator(usersId))
                 }
                 dispatch(followingProcessActionCreator(false, usersId))
@@ -109,8 +109,8 @@ export const followThunkActionCreator = (usersId: number): thunkTypes => {
     return (dispatch) => {
         dispatch(followingProcessActionCreator(true, usersId))
         FollowAPI.followUser(usersId)
-            .then((response: any) => {
-                if (response.resultCode === 0) {
+            .then((response) => {
+                if (response.resultCode == followResultCodeEnum.success) {
                     dispatch(followActionCreator(usersId))
                 }
                 dispatch(followingProcessActionCreator(false, usersId))

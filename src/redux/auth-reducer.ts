@@ -1,4 +1,4 @@
-import {AuthAPI, LoginApi} from "../api/api";
+import {AuthAPI, authResultCodeEnum, LoginApi} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {stateType} from "./redux-store";
 
@@ -24,7 +24,7 @@ export const AuthThunkActionCreator = ():ThunkAction<
 > => {
     return async (dispatch) => {
         let response = await AuthAPI.authMe();
-        if (response.resultCode === 0) {
+        if (response.resultCode == authResultCodeEnum.success) {
             let {id, email, login} = response.data;
             dispatch(setAuthActionCreator(id, email, login, true))
         }
