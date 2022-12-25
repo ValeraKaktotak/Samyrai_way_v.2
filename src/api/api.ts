@@ -9,25 +9,50 @@ const axiosCreeds = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
 });
 
+type getUsersItem = {
+    name: string,
+    id: number,
+    photos: {
+        small: string | null,
+        large: string | null
+    },
+    status: string | null,
+    followed: boolean
+
+}
+type getUsersTypes = {
+    items: Array<getUsersItem>
+    totalCount: number
+    error: string
+}
 export const UsersAPI = {
     getUsers (usersCurrentPage = 1, usersCountOnPage = 10){
         return(
-            axiosCreeds.get(`users?page=${usersCurrentPage}&count=${usersCountOnPage}`)
+            axiosCreeds.get<getUsersTypes>(`users?page=${usersCurrentPage}&count=${usersCountOnPage}`)
             .then(response=>response.data)
         )
     }
 }
 
+export enum followResultCodeEnum {
+    success = 0,
+    error = 1
+}
+type followType = {
+    resultCode: followResultCodeEnum
+    messages: Array<string>,
+    data: {}
+}
 export const FollowAPI = {
     unfollowUser (userID:number){
         return(
-            axiosCreeds.delete(`follow/${userID}`)
+            axiosCreeds.delete<followType>(`follow/${userID}`)
                 .then(response=>response.data)
         )
     },
     followUser (userID:number){
         return(
-            axiosCreeds.post(`follow/${userID}`)
+            axiosCreeds.post<followType>(`follow/${userID}`)
                 .then(response=>response.data)
         )
     }
@@ -87,7 +112,7 @@ export const ProfileAPI = {
 }
 
 export const LoginApi = {
-    login (email: string, password:number, rememberMe = false, captcha:string){
+    login (email: string, password:string, rememberMe = false, captcha:string){
         return(
             axiosCreeds.post(`/auth/login`, {
                 email,
