@@ -58,10 +58,23 @@ export const FollowAPI = {
     }
 }
 
+export enum authResultCodeEnum {
+    success = 0,
+    error = 1
+}
+type authType = {
+    resultCode: authResultCodeEnum
+    messages: Array<string>,
+    data: {
+        id: number,
+        email: string,
+        login: string
+    }
+}
 export const AuthAPI = {
     authMe (){
         return(
-            axiosCreeds.get(`auth/me/`)
+            axiosCreeds.get<authType>(`auth/me/`)
                 .then(response=>response.data)
         )
     }
