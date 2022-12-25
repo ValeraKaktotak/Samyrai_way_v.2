@@ -1,4 +1,5 @@
-import * as axios from "axios";
+import axios from "axios";
+import {profileType} from "../types/types";
 
 const axiosCreeds = axios.create({
     headers:{
@@ -18,13 +19,13 @@ export const UsersAPI = {
 }
 
 export const FollowAPI = {
-    unfollowUser (userID){
+    unfollowUser (userID:number){
         return(
             axiosCreeds.delete(`follow/${userID}`)
                 .then(response=>response.data)
         )
     },
-    followUser (userID){
+    followUser (userID:number){
         return(
             axiosCreeds.post(`follow/${userID}`)
                 .then(response=>response.data)
@@ -42,19 +43,19 @@ export const AuthAPI = {
 }
 
 export const ProfileAPI = {
-    getUser (userId){
+    getUser (userId:number){
         return(
             axiosCreeds.get(`profile/${userId}`)
                 .then(response=>response.data)
         )
     },
-    getUserStatus (userId){
+    getUserStatus (userId:number){
         return(
             axiosCreeds.get(`/profile/status/${userId}`)
                 .then(response=>response.data)
         )
     },
-    setUserStatus (userStatus){
+    setUserStatus (userStatus: string){
         return (
             axiosCreeds.put(`/profile/status`, {
                 status: userStatus
@@ -62,16 +63,16 @@ export const ProfileAPI = {
                 .then(response=>response.data)
         )
     },
-    setProfile (profile){
-        if(!profile.lookingForJob){
-            profile.lookingForJob = false;
+    setProfile (profile: profileType){
+        if(!profile.lookingForAJob){
+            profile.lookingForAJob = false;
         }
         return (
             axiosCreeds.put(`/profile`, profile)
                 .then(response=>response.data)
         )
     },
-    setPhoto (file){
+    setPhoto (file: any){
         let formData = new FormData();
         formData.append("image", file);
         return (
@@ -86,7 +87,7 @@ export const ProfileAPI = {
 }
 
 export const LoginApi = {
-    login (email, password, rememberMe = false, captcha){
+    login (email: string, password:number, rememberMe = false, captcha:string){
         return(
             axiosCreeds.post(`/auth/login`, {
                 email,
