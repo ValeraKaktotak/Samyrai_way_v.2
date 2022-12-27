@@ -16,14 +16,17 @@ type mapDispatchPropsType = {
     login: (email:string, password:string, rememberMe:boolean, captcha:string) => void
 }
 type loginFormValuesType = {
-    email: string, password: string, rememberMe: boolean, captcha: string | null
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string
 }
 type loginFormOwnProps = {
     captcha: string | null
 }
 
 const Login: React.FC<mapStatePropsType & mapDispatchPropsType> = (props) => {
-    const onSubmitFunction = (formData: any) => {
+    const onSubmitFunction = (formData: loginFormValuesType) => {
         let {email, password, rememberMe, captcha} = formData;
         props.login(email, password, rememberMe = false, captcha)
     }
