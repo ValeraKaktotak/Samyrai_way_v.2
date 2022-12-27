@@ -1,9 +1,9 @@
 import React from "react";
 
+type validatorsType = (value:any) => void
 
-export const required = value => (value ? undefined : 'Required')
-
-const maxLength = (max) => (value) =>
+export const required: validatorsType = (value) => (value ? undefined : 'Required')
+const maxLength = (max:number):validatorsType => (value) =>
     value && value.length > max ? `Must be ${max} characters or less` : undefined
 
 export const maxLength20 = maxLength(20)

@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './FormControls.module.css'
 
-//фенкция для textarea
+//функция для textarea
 export const Textarea = ({input, meta, ...props}) => {
     const hasError = meta.submitFailed && meta.error;
     return(
