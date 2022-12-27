@@ -15,11 +15,9 @@ type mapStatePropsType = {
 type mapDispatchPropsType = {
     login: (email:string, password:string, rememberMe:boolean, captcha:string) => void
 }
-
 type loginFormValuesType = {
     email: string, password: string, rememberMe: boolean, captcha: string | null
 }
-
 type loginFormOwnProps = {
     captcha: string | null
 }
