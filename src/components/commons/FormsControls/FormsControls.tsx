@@ -1,8 +1,11 @@
 import React from 'react'
 import style from './FormControls.module.css'
+import {WrappedFieldProps} from "redux-form";
+
+type customElemProps = (data: any) => (data: WrappedFieldProps) => JSX.Element
 
 //функция для textarea
-export const Textarea = ({input, meta, ...props}) => {
+export const Textarea:React.FC<WrappedFieldProps> = ({input, meta, ...props}) => {
     const hasError = meta.submitFailed && meta.error;
     return(
         <div className={style.formControl+' '+(hasError?style.errorBorder: '')}>
@@ -13,7 +16,7 @@ export const Textarea = ({input, meta, ...props}) => {
 }
 
 //универсальная функция
-export const Element = (FormElement) => ({ input, meta, ...props }) => {
+export const Element:customElemProps = (FormElement) => ({ input, meta, ...props }) => {
     const hasError = meta.touched && meta.error;
     return (
         <div className={style.formControl+' '+(hasError?style.errorBorder: '')}>
