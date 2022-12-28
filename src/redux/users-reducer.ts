@@ -17,25 +17,25 @@ type actionsTypes = inferActionsTypes<typeof actionsCreators>
 
 export const actionsCreators = {
     followActionCreator: (userId: number) => {
-        return {type: followActionCreatorConst, userId} as const
+        return {type: 'FOLLOW', userId} as const
     },
     unfollowActionCreator: (userId: number) => {
-        return {type: unfollowActionCreatorConst, userId} as const
+        return {type: 'UNFOLLOW', userId} as const
     },
     addUsersActionCreator: (newUsers: Array<usersType>) => {
-        return {type: addUsersActionCreatorConst, newUsers} as const
+        return {type: 'ADD-USERS', newUsers} as const
     },
     addUserCountActionCreator: (count: number) => {
-        return {type: addUsersCountActionCreatorConst, count} as const
+        return {type: 'ADD-USERS-COUNT', count} as const
     },
     changeUsersCurrentPageActionCreator: (page: number) => {
-        return {type: changeUsersCurrentPageActionCreatorConst, page} as const
+        return {type: 'CHANGE-CURRENT-PAGE', page} as const
     },
     preloaderActionCreator: (isLoader: boolean) => {
-        return {type: preloaderActionCreatorConst, isLoader} as const
+        return {type: 'PRELOADER', isLoader} as const
     },
     followingProcessActionCreator: (toggleStatus: boolean, userId: number) => {
-        return {type: followingProcessActionCreatorConst, toggleStatus, userId} as const
+        return {type: 'TOGGLE_IS_FOLLOWING', toggleStatus, userId} as const
     }
 }
 
@@ -109,7 +109,7 @@ type thunkTypes = ThunkAction<
 
 const usersReducer = (state = usersReducerInit, action: actionsTypes): usersReducerInitType => {
     switch (action.type) {
-        case followActionCreatorConst:
+        case 'FOLLOW':
             return {
                 ...state,
                 users: state.users.map(u => {
@@ -119,7 +119,7 @@ const usersReducer = (state = usersReducerInit, action: actionsTypes): usersRedu
                     return u
                 })
             }
-        case unfollowActionCreatorConst:
+        case 'UNFOLLOW':
             return {
                 ...state,
                 users: state.users.map(u => {
@@ -129,23 +129,23 @@ const usersReducer = (state = usersReducerInit, action: actionsTypes): usersRedu
                     return u
                 })
             }
-        case addUsersActionCreatorConst:
+        case 'ADD-USERS':
             return {
                 ...state, users: [...action.newUsers]
             }
-        case addUsersCountActionCreatorConst:
+        case 'ADD-USERS-COUNT':
             return {
                 ...state, usersCount: action.count
             }
-        case changeUsersCurrentPageActionCreatorConst:
+        case 'CHANGE-CURRENT-PAGE':
             return {
                 ...state, usersCurrentPage: action.page
             }
-        case preloaderActionCreatorConst:
+        case 'PRELOADER':
             return {
                 ...state, isLoader: action.isLoader
             }
-        case followingProcessActionCreatorConst:
+        case 'TOGGLE_IS_FOLLOWING':
             return {
                 ...state,
                 isFollowingProcess: action.toggleStatus
