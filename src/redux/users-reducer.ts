@@ -71,6 +71,7 @@ export const followingProcessActionCreator = (toggleStatus: boolean, userId: num
 
 // thunk action creators
 export const getUsersThunkActionCreator = (usersCurrentPage: number, usersCountOnPage: number): thunkTypes => {
+    // dispatch:Dispatch<actionTypes>
     return (dispatch) => {
         dispatch(preloaderActionCreator(true))
         UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
