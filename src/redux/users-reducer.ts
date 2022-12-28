@@ -3,14 +3,6 @@ import {usersType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {inferActionsTypes, stateType} from "./redux-store";
 
-const followActionCreatorConst = 'FOLLOW';
-const unfollowActionCreatorConst = 'UNFOLLOW';
-const addUsersActionCreatorConst = 'ADD-USERS';
-const addUsersCountActionCreatorConst = 'ADD-USERS-COUNT';
-const changeUsersCurrentPageActionCreatorConst = 'CHANGE-CURRENT-PAGE';
-const preloaderActionCreatorConst = 'PRELOADER';
-const followingProcessActionCreatorConst = 'TOGGLE_IS_FOLLOWING';
-
 // Action creators
 
 type actionsTypes = inferActionsTypes<typeof actionsCreators>
