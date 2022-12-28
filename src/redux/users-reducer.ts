@@ -1,7 +1,7 @@
 import {FollowAPI, followResultCodeEnum, UsersAPI} from "../api/api";
 import {usersType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
-import {stateType} from "./redux-store";
+import {inferActionsTypes, stateType} from "./redux-store";
 
 const followActionCreatorConst = 'FOLLOW';
 const unfollowActionCreatorConst = 'UNFOLLOW';
@@ -12,109 +12,79 @@ const preloaderActionCreatorConst = 'PRELOADER';
 const followingProcessActionCreatorConst = 'TOGGLE_IS_FOLLOWING';
 
 // Action creators
-type followActionCreatorType = {
-    type: typeof followActionCreatorConst
-    userId: number
-}
-export const followActionCreator = (userId: number): followActionCreatorType => {
-    return {type: followActionCreatorConst, userId}
-}
 
-type unfollowActionCreatorType = {
-    type: typeof unfollowActionCreatorConst
-    userId: number
-}
-export const unfollowActionCreator = (userId: number): unfollowActionCreatorType => {
-    return {type: unfollowActionCreatorConst, userId}
-}
+type actionsTypes = inferActionsTypes<typeof actionsCreators>
 
-type addUsersActionCreatorType = {
-    type: typeof addUsersActionCreatorConst
-    newUsers: Array<usersType>
-}
-export const addUsersActionCreator = (newUsers: Array<usersType>): addUsersActionCreatorType => {
-    return {type: addUsersActionCreatorConst, newUsers}
-}
-
-type addUserCountActionCreatorType = {
-    type: typeof addUsersCountActionCreatorConst
-    count: number
-}
-export const addUserCountActionCreator = (count: number): addUserCountActionCreatorType => {
-    return {type: addUsersCountActionCreatorConst, count}
-}
-
-type changeUsersCurrentPageActionCreatorType = {
-    type: typeof changeUsersCurrentPageActionCreatorConst
-    page: number
-}
-export const changeUsersCurrentPageActionCreator = (page: number): changeUsersCurrentPageActionCreatorType => {
-    return {type: changeUsersCurrentPageActionCreatorConst, page}
-}
-
-type preloaderActionCreatorType = {
-    type: typeof preloaderActionCreatorConst
-    isLoader: boolean
-}
-export const preloaderActionCreator = (isLoader: boolean): preloaderActionCreatorType => {
-    return {type: preloaderActionCreatorConst, isLoader}
-}
-
-type followingProcessActionCreatorType = {
-    type: typeof followingProcessActionCreatorConst,
-    toggleStatus: boolean,
-    userId: number
-}
-export const followingProcessActionCreator = (toggleStatus: boolean, userId: number): followingProcessActionCreatorType => {
-    return {type: followingProcessActionCreatorConst, toggleStatus, userId}
+export const actionsCreators = {
+    followActionCreator: (userId: number) => {
+        return {type: followActionCreatorConst, userId} as const
+    },
+    unfollowActionCreator: (userId: number) => {
+        return {type: unfollowActionCreatorConst, userId} as const
+    },
+    addUsersActionCreator: (newUsers: Array<usersType>) => {
+        return {type: addUsersActionCreatorConst, newUsers} as const
+    },
+    addUserCountActionCreator: (count: number) => {
+        return {type: addUsersCountActionCreatorConst, count} as const
+    },
+    changeUsersCurrentPageActionCreator: (page: number) => {
+        return {type: changeUsersCurrentPageActionCreatorConst, page} as const
+    },
+    preloaderActionCreator: (isLoader: boolean) => {
+        return {type: preloaderActionCreatorConst, isLoader} as const
+    },
+    followingProcessActionCreator: (toggleStatus: boolean, userId: number) => {
+        return {type: followingProcessActionCreatorConst, toggleStatus, userId} as const
+    }
 }
 
 // thunk action creators
 export const getUsersThunkActionCreator = (usersCurrentPage: number, usersCountOnPage: number): thunkTypes => {
     // dispatch:Dispatch<actionTypes>
     return (dispatch) => {
-        dispatch(preloaderActionCreator(true))
+        dispatch(actionsCreators.preloaderActionCreator(true))
         UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
             .then((response) => {
-                dispatch(addUsersActionCreator(response.items))
-                dispatch(addUserCountActionCreator(response.totalCount))
-                dispatch(preloaderActionCreator(false))
+                dispatch(actionsCreators.addUsersActionCreator(response.items))
+                dispatch(actionsCreators.addUserCountActionCreator(response.totalCount))
+                dispatch(actionsCreators.preloaderActionCreator(false))
             })
     }
 }
 export const changePagesThunkActionCreator = (usersCurrentPage: number, usersCountOnPage: number): thunkTypes => {
     return (dispatch) => {
-        dispatch(preloaderActionCreator(true))
-        dispatch(changeUsersCurrentPageActionCreator(usersCurrentPage))
+        dispatch(actionsCreators.preloaderActionCreator(true))
+        dispatch(actionsCreators.changeUsersCurrentPageActionCreator(usersCurrentPage))
         UsersAPI.getUsers(usersCurrentPage, usersCountOnPage)
             .then((response: any) => {
-                dispatch(addUsersActionCreator(response.items))
-                dispatch(addUserCountActionCreator(response.totalCount))
-                dispatch(preloaderActionCreator(false))
+                dispatch(actionsCreators.addUsersActionCreator(response.items))
+                dispatch(actionsCreators.addUserCountActionCreator(response.totalCount))
+                dispatch(actionsCreators.preloaderActionCreator(false))
             })
     }
 }
 export const unfollowThunkActionCreator = (usersId: number): thunkTypes => {
     return (dispatch) => {
-        dispatch(followingProcessActionCreator(true, usersId))
+        dispatch(actionsCreators.followingProcessActionCreator(true, usersId))
         FollowAPI.unfollowUser(usersId)
             .then((response) => {
                 if (response.resultCode == followResultCodeEnum.success) {
-                    dispatch(unfollowActionCreator(usersId))
+                    dispatch(actionsCreators.unfollowActionCreator(usersId))
                 }
-                dispatch(followingProcessActionCreator(false, usersId))
+                dispatch(actionsCreators.followingProcessActionCreator(false, usersId))
             })
     }
 }
 export const followThunkActionCreator = (usersId: number): thunkTypes => {
     return (dispatch) => {
-        dispatch(followingProcessActionCreator(true, usersId))
+        dispatch(actionsCreators.followingProcessActionCreator(true, usersId))
         FollowAPI.followUser(usersId)
             .then((response) => {
                 if (response.resultCode == followResultCodeEnum.success) {
-                    dispatch(followActionCreator(usersId))
+                    dispatch(actionsCreators.followActionCreator(usersId))
                 }
-                dispatch(followingProcessActionCreator(false, usersId))
+                dispatch(actionsCreators.followingProcessActionCreator(false, usersId))
             })
     }
 }
@@ -129,23 +99,15 @@ const usersReducerInit = {
     isFollowingProcess: [] as Array<number>
 }
 export type usersReducerInitType = typeof usersReducerInit
-type actionTypes =
-    followActionCreatorType
-    | unfollowActionCreatorType
-    | addUsersActionCreatorType
-    | addUserCountActionCreatorType
-    | changeUsersCurrentPageActionCreatorType
-    | preloaderActionCreatorType
-    | followingProcessActionCreatorType
 
 type thunkTypes = ThunkAction<
     void,
     stateType,
     unknown,
-    actionTypes
+    actionsTypes
 >
 
-const usersReducer = (state = usersReducerInit, action: actionTypes): usersReducerInitType => {
+const usersReducer = (state = usersReducerInit, action: actionsTypes): usersReducerInitType => {
     switch (action.type) {
         case followActionCreatorConst:
             return {
