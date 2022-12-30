@@ -73,7 +73,8 @@ class UsersContainer extends React.Component<propTypes>{
                         <p>{u.photos.small}</p>
                         <p>{u.name}</p>
                         <p>{u.location}</p>
-                        <p>{this.props.usersCount}</p>
+                        <p>User ID: {u.id}</p>
+                        <p>Users count: {this.props.usersCount}</p>
                     </div>
                 </div>
             )

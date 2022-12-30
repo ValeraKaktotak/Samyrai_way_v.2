@@ -1,7 +1,9 @@
-import {FollowAPI, followResultCodeEnum, UsersAPI} from "../api/api";
+import {successErrorEnum} from "../api/api";
 import {usersType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {inferActionsTypes, stateType} from "./redux-store";
+import {UsersAPI} from "../api/usersAPI";
+import {FollowAPI} from "../api/followAPI";
 
 // Action creators
 
@@ -61,7 +63,7 @@ export const unfollowThunkActionCreator = (usersId: number): thunkTypes => {
         dispatch(actionsCreators.followingProcessActionCreator(true, usersId))
         FollowAPI.unfollowUser(usersId)
             .then((response) => {
-                if (response.resultCode == followResultCodeEnum.success) {
+                if (response.resultCode == successErrorEnum.success) {
                     dispatch(actionsCreators.unfollowActionCreator(usersId))
                 }
                 dispatch(actionsCreators.followingProcessActionCreator(false, usersId))
@@ -73,7 +75,7 @@ export const followThunkActionCreator = (usersId: number): thunkTypes => {
         dispatch(actionsCreators.followingProcessActionCreator(true, usersId))
         FollowAPI.followUser(usersId)
             .then((response) => {
-                if (response.resultCode == followResultCodeEnum.success) {
+                if (response.resultCode == successErrorEnum.success) {
                     dispatch(actionsCreators.followActionCreator(usersId))
                 }
                 dispatch(actionsCreators.followingProcessActionCreator(false, usersId))

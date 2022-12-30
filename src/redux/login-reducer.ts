@@ -1,8 +1,8 @@
-import {LoginApi} from "../api/api";
 import {AuthThunkActionCreator} from "./auth-reducer";
 import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {stateType} from "./redux-store";
+import {LoginApi, loginResultCodeEnum} from "../api/loginApi";
 
 const captchaActionCreatorConst = 'CAPTCHA-URL';
 type captchaActionCreatorType = {
@@ -24,10 +24,10 @@ export const loginUserThunkActionCreator = (email:string, password:string, remem
 > => {
     return async (dispatch: any) => {
         let loginResponse = await LoginApi.login(email, password, rememberMe, captcha)
-        if (loginResponse.resultCode === 0) {
+        if (loginResponse.resultCode === loginResultCodeEnum.success) {
             dispatch(AuthThunkActionCreator())
         } else {
-            if(loginResponse.resultCode === 10){
+            if(loginResponse.resultCode === loginResultCodeEnum.captcha){
                 dispatch(captchaThunk())
             }
             let message = loginResponse.messages.length > 0 ? loginResponse.messages[0] : "Some error";

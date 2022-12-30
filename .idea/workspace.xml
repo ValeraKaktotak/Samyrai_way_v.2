@@ -5,6 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ef9b0e7b-f874-42ed-b45e-177b6c94e2d1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/api/authAPI.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/followAPI.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/loginApi.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/profileAPI.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/usersAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/MyProfile/MyProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyProfile/MyProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Users/UsersContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/UsersContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/auth-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/auth-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/login-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/login-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/profile-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/profile-reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/users-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/users-reducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +56,14 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="es6.move.members.recent.items">
+      <recent name="$PROJECT_DIR$/src/api/authAPI.ts" />
+      <recent name="$PROJECT_DIR$/src/api/loginApi.ts" />
+      <recent name="$PROJECT_DIR$/src/api/followAPI.ts" />
+      <recent name="$PROJECT_DIR$/src/api/usersAPI.ts" />
+    </key>
+  </component>
   <component name="RunManager" selected="npm.start">
     <configuration name="test preloader" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
@@ -112,7 +132,13 @@
       <workItem from="1672149178515" duration="13933000" />
       <workItem from="1672168284929" duration="109000" />
       <workItem from="1672210054691" duration="5153000" />
-      <workItem from="1672240873482" duration="6451000" />
+      <workItem from="1672240873482" duration="6837000" />
+      <workItem from="1672263014726" duration="2669000" />
+      <workItem from="1672314520002" duration="1244000" />
+      <workItem from="1672327166697" duration="1742000" />
+      <workItem from="1672329565839" duration="667000" />
+      <workItem from="1672404362523" duration="874000" />
+      <workItem from="1672405541380" duration="11892000" />
     </task>
     <servers />
   </component>
