@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ef9b0e7b-f874-42ed-b45e-177b6c94e2d1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/api/authAPI.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/followAPI.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/loginApi.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/profileAPI.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/usersAPI.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/profileAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/profileAPI.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Profile/MyProfile/MyProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyProfile/MyProfile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Users/UsersContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/UsersContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/auth-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/auth-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/login-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/login-reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/profile-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/profile-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/users-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/users-reducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +130,8 @@
       <workItem from="1672327166697" duration="1742000" />
       <workItem from="1672329565839" duration="667000" />
       <workItem from="1672404362523" duration="874000" />
-      <workItem from="1672405541380" duration="11892000" />
+      <workItem from="1672405541380" duration="12938000" />
+      <workItem from="1672435507205" duration="11968000" />
     </task>
     <servers />
   </component>

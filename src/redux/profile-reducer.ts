@@ -52,7 +52,7 @@ export const getUserThunkActionCreator = (userId: number): thunkTypes => {
 export const setUserPhotoThunk = (file: any): thunkTypes => {
     return async (dispatch) => {
         let setPhoto = await ProfileAPI.setPhoto(file)
-        dispatch(setPhotoActionCreator(setPhoto.data))
+        dispatch(setPhotoActionCreator(setPhoto.data.photos))
     }
 }
 export const setProfileDataThunk = (profile: profileType): thunkTypes => {
@@ -149,6 +149,7 @@ const profileReducer = (state = profileReducerInit, action: actionTypes): profil
         case setPhotoActionCreatorConst:
             return {
                 ...state,
+                //profile: {...state.profile, photos: {...action.photo}} as profileType
                 profile: {...state.profile, photos: action.photo} as profileType
             }
     }

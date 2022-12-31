@@ -14,7 +14,7 @@ export enum successErrorEnum {
 }
 export type apiMainType<D = {}, RC = successErrorEnum> = {
     resultCode: RC
-    messages: Array<string>,
+    messages: Array<string>
     data: D
 }
 

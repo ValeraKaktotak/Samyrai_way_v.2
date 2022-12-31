@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import style from './MyProfile.module.css';
 import Preloader from "../../Preloader/Preloader";
 import defaultAvatar from "../../../assets/images/avatar.jpg";
@@ -33,8 +33,10 @@ const MyProfile: React.FC<propsType> = (props) => {
         })
     }
 
-    const avatarHandler = (e: any) => {
-        props.setPhoto(e.target.files[0])
+    const avatarHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
+            props.setPhoto(e.target.files[0]);
+        }
     }
     const editModeToggle = () => {
         setEditMode(true)

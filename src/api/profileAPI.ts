@@ -1,7 +1,9 @@
 import {photosType, profileType} from "../types/types";
 import {apiMainType, axiosCreeds} from "./api";
 
-type profileSetUserStatusType = {}
+type setPhotoDataType = {
+    photos: photosType
+}
 export const ProfileAPI = {
     getUser(userId: number) {
         return (
@@ -36,7 +38,7 @@ export const ProfileAPI = {
         let formData = new FormData();
         formData.append("image", file);
         return (
-            axiosCreeds.put<apiMainType<photosType>>(`/profile/photo`, formData, {
+            axiosCreeds.put<apiMainType<setPhotoDataType>>(`/profile/photo`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
