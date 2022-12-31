@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import style from './MyProfile.module.css';
 import Preloader from "../../Preloader/Preloader";
 import defaultAvatar from "../../../assets/images/avatar.jpg";
@@ -33,9 +33,10 @@ const MyProfile: React.FC<propsType> = (props) => {
         })
     }
 
-    const avatarHandler = (e: any) => {
-        // @ts-ignore
-        this.props.setPhoto(e.target.files[0])
+    const avatarHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
+            props.setPhoto(e.target.files[0]);
+        }
     }
     const editModeToggle = () => {
         setEditMode(true)
@@ -48,7 +49,7 @@ const MyProfile: React.FC<propsType> = (props) => {
     } else {
         return (
             <div>
-                {!editMode? <ProfileData editModeToggle={editModeToggle} avatarHandler={avatarHandler} {...props} />:
+                {!editMode? <ProfileData avatarHandler={avatarHandler} editModeToggle={editModeToggle} {...props} />:
                     <ProfileDataForm initialValues={props.profile} {...props} onSubmit={onSubmitFunction} />}
             </div>
         )
@@ -58,6 +59,7 @@ const MyProfile: React.FC<propsType> = (props) => {
 const ProfileData: React.FC<ProfileDataType> = (props) => {
     return(
         <div className={style.MyProfile}>
+            {props.isOwner && <input type={"file"} onChange={props.avatarHandler}/>}
             <div className={style.user_block}>
                 {props.isOwner && <button onClick={props.editModeToggle}>Edit my profile</button>}
                 <img

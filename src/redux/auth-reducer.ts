@@ -1,6 +1,8 @@
-import {AuthAPI, authResultCodeEnum, LoginApi} from "../api/api";
+import {successErrorEnum} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {stateType} from "./redux-store";
+import {LoginApi} from "../api/loginApi";
+import {AuthAPI} from "../api/authAPI";
 
 const setAuthActionCreatorConst = 'SET-LOGIN-AUTH';
 type setAuthActionType = {
@@ -24,7 +26,7 @@ export const AuthThunkActionCreator = ():ThunkAction<
 > => {
     return async (dispatch) => {
         let response = await AuthAPI.authMe();
-        if (response.resultCode == authResultCodeEnum.success) {
+        if (response.resultCode == successErrorEnum.success) {
             let {id, email, login} = response.data;
             dispatch(setAuthActionCreator(id, email, login, true))
         }
@@ -39,7 +41,7 @@ export const logOutUserThunkActionCreator = ():ThunkAction<
 > => {
     return async (dispatch) => {
         let logOutResponse = await LoginApi.logOut()
-        if (logOutResponse.resultCode === 0) {
+        if (logOutResponse.resultCode === successErrorEnum.success) {
             dispatch(logOutHeaderAuthThunkActionCreator())
         }
     }

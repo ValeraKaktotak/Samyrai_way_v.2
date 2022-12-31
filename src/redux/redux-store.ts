@@ -6,7 +6,7 @@ import usersReducer from "./users-reducer"
 import authReducer from "./auth-reducer"
 import loginReducer from "./login-reducer"
 import thunkMiddleWear from "redux-thunk"
-import { reducer as formReducer } from 'redux-form'
+import {reducer as formReducer} from 'redux-form'
 import appReducer from "./app-reducer"
 
 const reducers = combineReducers({
@@ -17,11 +17,16 @@ const reducers = combineReducers({
     loginAuth: authReducer,
     loginPage: loginReducer,
     form: formReducer,
-    app:appReducer
+    app: appReducer
 })
 
+//типизируем общий стэйт
 type rootReducersType = typeof reducers
 export type stateType = ReturnType<rootReducersType>
+
+//ф-ция для типизации объекта с экшенами
+type actionCreatorsObject<T> = T extends { [key: string]: infer U } ? U : never
+export type inferActionsTypes<T extends { [key: string]: (...params: any[]) => any }> = ReturnType<actionCreatorsObject<T>>
 
 //подключаем redux dev tools
 // @ts-ignore

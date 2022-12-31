@@ -1,9 +1,9 @@
-import {ProfileAPI, setUserStatusResultCodeEnum} from "../api/api";
-import {AuthThunkActionCreator} from "./auth-reducer";
+import {successErrorEnum} from "../api/api";
 import {stopSubmit} from "redux-form";
-import {postDataType, contactsType, photosType, profileType} from "../types/types"
+import {postDataType, photosType, profileType} from "../types/types"
 import {ThunkAction} from "redux-thunk";
 import {stateType} from "./redux-store";
+import {ProfileAPI} from "../api/profileAPI";
 
 const addPostActionCreatorConst = 'ADD-POST';
 const setProfileActionCreatorConst = 'SET-PROFILE';
@@ -52,13 +52,13 @@ export const getUserThunkActionCreator = (userId: number): thunkTypes => {
 export const setUserPhotoThunk = (file: any): thunkTypes => {
     return async (dispatch) => {
         let setPhoto = await ProfileAPI.setPhoto(file)
-        dispatch(setPhotoActionCreator(setPhoto.data))
+        dispatch(setPhotoActionCreator(setPhoto.data.photos))
     }
 }
 export const setProfileDataThunk = (profile: profileType): thunkTypes => {
     return async (dispatch: any) => {
         let setProfile = await ProfileAPI.setProfile(profile)
-        if (setProfile.resultCode === setUserStatusResultCodeEnum.success) {
+        if (setProfile.resultCode === successErrorEnum.success) {
             dispatch(setProfileActionCreator(profile))
         } else {
             let message = setProfile.messages.length > 0 ? setProfile.messages[0] : "Some error";
@@ -77,7 +77,7 @@ export const getUserStatusThunkActionCreator = (userId: number): thunkTypes => {
 export const setUserStatusThunkActionCreator = (status: string): thunkTypes=> {
     return async (dispatch) => {
         let setUserStatus = await ProfileAPI.setUserStatus(status)
-        if (setUserStatus.resultCode === setUserStatusResultCodeEnum.success) {
+        if (setUserStatus.resultCode === successErrorEnum.success) {
             dispatch(setUserStatusActionCreator(status))
         }
     }
@@ -149,6 +149,7 @@ const profileReducer = (state = profileReducerInit, action: actionTypes): profil
         case setPhotoActionCreatorConst:
             return {
                 ...state,
+                //profile: {...state.profile, photos: {...action.photo}} as profileType
                 profile: {...state.profile, photos: action.photo} as profileType
             }
     }
