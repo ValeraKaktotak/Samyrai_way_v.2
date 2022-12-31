@@ -1,6 +1,6 @@
 import {AuthThunkActionCreator} from "./auth-reducer"
 import {ThunkAction} from "redux-thunk"
-import {inferActionsTypes, stateType} from "./redux-store"
+import {baseThunkType, inferActionsTypes, stateType} from "./redux-store"
 
 type actionsTypes = inferActionsTypes<typeof appActionsCreators>
 export const appActionsCreators = {
@@ -10,12 +10,7 @@ export const appActionsCreators = {
 }
 
 // thunk action creators
-export const initializationAppThunkActionCreator = ():ThunkAction<
-    void,
-    stateType,
-    unknown,
-    actionsTypes
-> => {
+export const initializationAppThunkActionCreator = ():baseThunkType<actionsTypes, void> => {
     return (dispatch) => {
 
         let authPromise = dispatch(AuthThunkActionCreator())
