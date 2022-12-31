@@ -1,7 +1,7 @@
 import React from 'react';
 import UserMessages from "./UserMessages";
 import {connect} from "react-redux";
-import {addMessageActionCreator} from "../../../redux/messages-reducer";
+import {messageActionsCreators} from "../../../redux/messages-reducer";
 import withAuthRedirect from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {stateType} from "../../../redux/redux-store";
@@ -21,5 +21,5 @@ let mapStateToProps = (state: stateType) => {
 
 export default compose(withAuthRedirect,
     connect<MapStateProps, DispatchProps, OwnProps, stateType>(mapStateToProps, {
-        onSendMessage: addMessageActionCreator})
+        onSendMessage: messageActionsCreators.addMessageActionCreator})
     )(UserMessages)

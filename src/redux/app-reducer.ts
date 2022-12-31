@@ -1,47 +1,34 @@
-import {AuthThunkActionCreator} from "./auth-reducer";
-import {ThunkAction} from "redux-thunk";
-import {stateType} from "./redux-store";
+import {AuthThunkActionCreator} from "./auth-reducer"
+import {ThunkAction} from "redux-thunk"
+import {baseThunkType, inferActionsTypes, stateType} from "./redux-store"
 
-const initializationActionCreatorConst = 'INITIALIZATION';
-
-type initializationActionCreatorType = {
-    type: typeof initializationActionCreatorConst
-}
-
-// Action creators
-export const initializationActionCreator = (): initializationActionCreatorType => {
-    return {
-        type: initializationActionCreatorConst
+type actionsTypes = inferActionsTypes<typeof appActionsCreators>
+export const appActionsCreators = {
+    initializationActionCreator: () => {
+        return {type: 'SN/APP/INITIALIZATION'} as const
     }
 }
 
 // thunk action creators
-export const initializationAppThunkActionCreator = ():ThunkAction<
-    void,
-    stateType,
-    unknown,
-    initializationActionCreatorType
-> => {
+export const initializationAppThunkActionCreator = ():baseThunkType<actionsTypes, void> => {
     return (dispatch) => {
 
         let authPromise = dispatch(AuthThunkActionCreator())
 
         authPromise.then(() => {
-            dispatch(initializationActionCreator())
+            dispatch(appActionsCreators.initializationActionCreator())
         })
     }
 }
 
-type appReducerInitType = {
-    initialized: boolean
-}
-
-const appReducerInit: appReducerInitType = {
+const appReducerInit = {
     initialized: false
 }
-const appReducer = (state = appReducerInit, action: initializationActionCreatorType): appReducerInitType => {
+type appReducerInitType = typeof appReducerInit
+
+const appReducer = (state = appReducerInit, action: actionsTypes): appReducerInitType => {
     switch (action.type) {
-        case initializationActionCreatorConst:
+        case 'SN/APP/INITIALIZATION':
             return {
                 ...state,
                 initialized: true

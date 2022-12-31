@@ -1,44 +1,31 @@
-import {successErrorEnum} from "../api/api";
-import {ThunkAction} from "redux-thunk";
-import {stateType} from "./redux-store";
-import {LoginApi} from "../api/loginApi";
-import {AuthAPI} from "../api/authAPI";
+import {baseThunkType, inferActionsTypes} from "./redux-store"
+import {successErrorEnum} from "../api/api"
+import {LoginApi} from "../api/loginApi"
+import {AuthAPI} from "../api/authAPI"
 
-const setAuthActionCreatorConst = 'SET-LOGIN-AUTH';
-type setAuthActionType = {
-    type: typeof setAuthActionCreatorConst,
-    UserData: authReducerInitType
-}
-export const setAuthActionCreator = (id: number | null, email: string | null, login: string | null, isLogged: boolean):setAuthActionType => {
-    return {
-        type: setAuthActionCreatorConst,
-        UserData: {
-            id, email, login, isLogged
-        }
+type actionsTypes = inferActionsTypes<typeof authActionCreators>
+export const authActionCreators = {
+    setAuthActionCreator: (id: number | null, email: string | null, login: string | null, isLogged: boolean) => {
+        return {
+            type: 'SN/AUTH/SET-LOGIN-AUTH',
+            UserData: {
+                id, email, login, isLogged
+            }
+        } as const
     }
 }
 
-export const AuthThunkActionCreator = ():ThunkAction<
-    Promise<void>,
-    stateType,
-    unknown,
-    setAuthActionType
-> => {
+export const AuthThunkActionCreator = (): baseThunkType<actionsTypes> => {
     return async (dispatch) => {
         let response = await AuthAPI.authMe();
         if (response.resultCode == successErrorEnum.success) {
             let {id, email, login} = response.data;
-            dispatch(setAuthActionCreator(id, email, login, true))
+            dispatch(authActionCreators.setAuthActionCreator(id, email, login, true))
         }
     }
 }
 
-export const logOutUserThunkActionCreator = ():ThunkAction<
-    Promise<void>,
-    stateType,
-    unknown,
-    setAuthActionType
-> => {
+export const logOutUserThunkActionCreator = (): baseThunkType<actionsTypes> => {
     return async (dispatch) => {
         let logOutResponse = await LoginApi.logOut()
         if (logOutResponse.resultCode === successErrorEnum.success) {
@@ -47,28 +34,23 @@ export const logOutUserThunkActionCreator = ():ThunkAction<
     }
 }
 
-export const logOutHeaderAuthThunkActionCreator = ():ThunkAction<
-    void,
-    stateType,
-    unknown,
-    setAuthActionType
-> => {
+export const logOutHeaderAuthThunkActionCreator = (): baseThunkType<actionsTypes, void> => {
     return (dispatch) => {
-        dispatch(setAuthActionCreator(null, null, null, false))
+        dispatch(authActionCreators.setAuthActionCreator(null, null, null, false))
     }
 }
 
 const authReducerInit = {
     id: null as number | null,
     email: null as string | null,
-    login: null as string |null,
+    login: null as string | null,
     isLogged: false as boolean,
 }
 export type authReducerInitType = typeof authReducerInit
 
-const authReducer = (state = authReducerInit, action:setAuthActionType):authReducerInitType => {
+const authReducer = (state = authReducerInit, action: actionsTypes): authReducerInitType => {
     switch (action.type) {
-        case setAuthActionCreatorConst:
+        case 'SN/AUTH/SET-LOGIN-AUTH':
             return {
                 ...state,
                 ...action.UserData,

@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ef9b0e7b-f874-42ed-b45e-177b6c94e2d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/profileAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/profileAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/MyProfile/MyProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyProfile/MyProfile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/profile-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/profile-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dialogs/UserMessages/UserMessagesContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/UserMessages/UserMessagesContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/messages-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/messages-reducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +129,8 @@
       <workItem from="1672329565839" duration="667000" />
       <workItem from="1672404362523" duration="874000" />
       <workItem from="1672405541380" duration="12938000" />
-      <workItem from="1672435507205" duration="11968000" />
+      <workItem from="1672435507205" duration="12084000" />
+      <workItem from="1672480944086" duration="13095000" />
     </task>
     <servers />
   </component>

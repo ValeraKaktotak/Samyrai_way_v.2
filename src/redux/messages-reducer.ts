@@ -2,29 +2,15 @@ import {
     messagesReducerDialogDataType,
     messagesReducerMessageDataType,
     messagesReducerMessageType
-} from "../types/types";
+} from "../types/types"
+import {inferActionsTypes} from "./redux-store"
 
-const addMessageActionCreatorConst = 'ADD-MESSAGE';
-const changeMessageTextActionCreatorConst = 'CHANGE-MESSAGE-TEXT';
-
-
-type changeMessageTextActionType = {
-    type: typeof changeMessageTextActionCreatorConst
-    newText: string
+export const messageActionsCreators = {
+    addMessageActionCreator: (message: messagesReducerMessageType) => ({type: 'SN/MSS/ADD-MESSAGE', message} as const)
 }
+type messageActionsTypes = inferActionsTypes<typeof messageActionsCreators>
 
-type addMessageActionType = {
-    type: typeof addMessageActionCreatorConst
-    message: string
-}
-export const addMessageActionCreator = (message: messagesReducerMessageType): addMessageActionType => {
-    return {
-        type: addMessageActionCreatorConst,
-        message: message.userMessage
-    }
-}
 
-type actionTypes = changeMessageTextActionType | addMessageActionType
 const messagesReducerInit = {
     dialogData: [
         {id: 1, name: 'Valera'},
@@ -44,22 +30,18 @@ const messagesReducerInit = {
 }
 type messagesReducerInitType = typeof messagesReducerInit
 
-const messagesReducer = (state = messagesReducerInit, action: actionTypes):messagesReducerInitType => {
-    if (action.type === changeMessageTextActionCreatorConst) {
-        return {
-            ...state,
-            newMessageDataArea: action.newText
-        }
-    } else if (action.type === addMessageActionCreatorConst) {
-        let newMessageObject = {
-            id: state.messageData.length + 1,
-            message: action.message
-        }
-        return {
-            ...state,
-            messageData: [newMessageObject, ...state.messageData],
-            newMessageDataArea: ''
-        }
+const messagesReducer = (state = messagesReducerInit, action: messageActionsTypes):messagesReducerInitType => {
+    switch (action.type) {
+        case 'SN/MSS/ADD-MESSAGE':
+            let newMessageObject: messagesReducerMessageDataType = {
+                id: state.messageData.length + 1,
+                message: action.message.userMessage
+            }
+            return {
+                ...state,
+                messageData: [newMessageObject, ...state.messageData],
+                newMessageDataArea: ''
+            }
     }
     return state
 }
