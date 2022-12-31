@@ -1,7 +1,7 @@
 import React from 'react';
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {addPostActionCreator, addPostActionCreatorType} from "../../../redux/profile-reducer";
+import {profileActionCreators} from "../../../redux/profile-reducer";
 import withAuthRedirect from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {postDataType} from "../../../types/types";
@@ -9,7 +9,7 @@ import {stateType} from "../../../redux/redux-store";
 
 type OwnPropsType = {}
 type mapDispatchTypes = {
-    onAddPost: (mss: string)=> addPostActionCreatorType
+    onAddPost: (mss: string)=> any
 }
 type mapStateTypes = {
     posts: Array<postDataType>
@@ -42,6 +42,6 @@ let mapStateToProps = (state: stateType): mapStateTypes => {
 export default compose(
     withAuthRedirect,
     connect<mapStateTypes, mapDispatchTypes, OwnPropsType, stateType>(mapStateToProps, {
-        onAddPost: addPostActionCreator
+        onAddPost: profileActionCreators.addPostActionCreator
     })
 )(MyPostContainer)
