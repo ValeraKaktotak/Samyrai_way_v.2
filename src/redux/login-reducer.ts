@@ -1,28 +1,15 @@
-import {AuthThunkActionCreator} from "./auth-reducer";
-import {stopSubmit} from "redux-form";
-import {ThunkAction} from "redux-thunk";
-import {stateType} from "./redux-store";
-import {LoginApi, loginResultCodeEnum} from "../api/loginApi";
+import {AuthThunkActionCreator} from "./auth-reducer"
+import {stopSubmit} from "redux-form"
+import {baseThunkType, inferActionsTypes} from "./redux-store"
+import {LoginApi, loginResultCodeEnum} from "../api/loginApi"
 
-const captchaActionCreatorConst = 'CAPTCHA-URL';
-type captchaActionCreatorType = {
-    type: typeof captchaActionCreatorConst
-    captcha: string
+export const loginActionsCreators = {
+    captchaActionCreator: (captcha:string) => ({type: 'SN/LOGIN/CAPTCHA-URL', captcha} as const)
 }
-export const captchaActionCreator = (captcha:string):captchaActionCreatorType => {
-    return {
-        type: captchaActionCreatorConst,
-        captcha
-    }
-}
+type actionsTypes = inferActionsTypes<typeof loginActionsCreators>
 
-export const loginUserThunkActionCreator = (email:string, password:string, rememberMe:boolean, captcha:string):ThunkAction<
-    Promise<void>,
-    stateType,
-    unknown,
-    captchaActionCreatorType
-> => {
-    return async (dispatch: any) => {
+export const loginUserThunkActionCreator = (email:string, password:string, rememberMe:boolean, captcha:string):baseThunkType<actionsTypes> => {
+    return async (dispatch) => {
         let loginResponse = await LoginApi.login(email, password, rememberMe, captcha)
         if (loginResponse.resultCode === loginResultCodeEnum.success) {
             dispatch(AuthThunkActionCreator())
@@ -30,21 +17,16 @@ export const loginUserThunkActionCreator = (email:string, password:string, remem
             if(loginResponse.resultCode === loginResultCodeEnum.captcha){
                 dispatch(captchaThunk())
             }
-            let message = loginResponse.messages.length > 0 ? loginResponse.messages[0] : "Some error";
-            let formErrorAction = stopSubmit("login", {_error: message});
-            dispatch(formErrorAction);
+            let message = loginResponse.messages.length > 0 ? loginResponse.messages[0] : "Some error"
+            let formErrorAction: any = stopSubmit("login", {_error: message});
+            dispatch(formErrorAction)
         }
     }
 }
-export const captchaThunk = ():ThunkAction<
-    Promise<void>,
-    stateType,
-    unknown,
-    captchaActionCreatorType
-> => {
+export const captchaThunk = ():baseThunkType<actionsTypes> => {
     return async (dispatch) => {
         let captchaUrl = await LoginApi.captcha()
-        dispatch(captchaActionCreator(captchaUrl))
+        dispatch(loginActionsCreators.captchaActionCreator(captchaUrl))
     }
 }
 
@@ -54,12 +36,12 @@ type loginReducerInitType = {
 }
 const loginReducerInit: loginReducerInitType = {
     loginData: [],
-    captcha: null
+    captcha: null as null | string
 }
 
-const loginReducer = (state = loginReducerInit, action:captchaActionCreatorType) => {
+const loginReducer = (state = loginReducerInit, action:actionsTypes) => {
     switch (action.type) {
-        case captchaActionCreatorConst:
+        case 'SN/LOGIN/CAPTCHA-URL':
             return {
                 ...state,
                 captcha: action.captcha
