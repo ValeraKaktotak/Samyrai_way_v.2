@@ -5,18 +5,17 @@ import {Field, reduxForm} from "redux-form";
 import {maxLength20, required} from "../../../helpers/validators";
 import {Textarea} from "../../commons/FormsControls/FormsControls";
 import {postDataType} from "../../../types/types";
-import {addPostActionCreatorType} from "../../../redux/profile-reducer";
 
 type propsType = {
     posts: Array<postDataType>
-    onAddPost: (mss: string)=> addPostActionCreatorType
+    onAddPost: (mss: string)=> any
 }
 
 const MyPosts:React.FC<propsType> = (props) => {
     const posts = props.posts.map(p => <MyPost key={p.id} message={p.message} likes={p.likes} avatar={p.avatar}/>);
 
     const onSubmitFunction = (data:any) => {
-        props.onAddPost(data)
+        props.onAddPost(data.myMessage)
     }
     return (
         <div className={style.my_posts}>

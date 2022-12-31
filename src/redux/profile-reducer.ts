@@ -1,100 +1,57 @@
-import {successErrorEnum} from "../api/api";
-import {stopSubmit} from "redux-form";
+import {stopSubmit} from "redux-form"
+import {baseThunkType, inferActionsTypes} from "./redux-store"
+import {successErrorEnum} from "../api/api"
+import {ProfileAPI} from "../api/profileAPI"
 import {postDataType, photosType, profileType} from "../types/types"
-import {ThunkAction} from "redux-thunk";
-import {stateType} from "./redux-store";
-import {ProfileAPI} from "../api/profileAPI";
 
-const addPostActionCreatorConst = 'ADD-POST';
-const setProfileActionCreatorConst = 'SET-PROFILE';
-const setUserStatusActionCreatorConst = 'SET-STATUS';
-const setPhotoActionCreatorConst = 'SET-PHOTO';
+export const profileActionCreators = {
+    addPostActionCreator: (message: string) => ({type: 'SN/PROFILE/ADD-POST', message: message} as const),
+    setProfileActionCreator: (profile: profileType) => ({type: 'SN/PROFILE/SET-PROFILE', profile} as const),
+    setUserStatusActionCreator: (status: string) => ({type: 'SN/PROFILE/SET-STATUS', status} as const),
+    setPhotoActionCreator: (photo: photosType) => ({type: 'SN/PROFILE/SET-PHOTO', photo} as const)
+}
+export type profileActionsTypes = inferActionsTypes<typeof profileActionCreators>
+type profileThunkTypes = baseThunkType<profileActionsTypes>
 
-
-export type addPostActionCreatorType = {
-    type: typeof addPostActionCreatorConst
-    message: string
-}
-export const addPostActionCreator = (message: string): addPostActionCreatorType => {
-    return {type: addPostActionCreatorConst, message: message}
-}
-
-type setProfileActionCreatorType = {
-    type: typeof setProfileActionCreatorConst
-    profile: profileType
-}
-export const setProfileActionCreator = (profile: profileType): setProfileActionCreatorType => {
-    return {type: setProfileActionCreatorConst, profile}
-}
-
-type setUserStatusActionCreatorType = {
-    type: typeof setUserStatusActionCreatorConst
-    status: string
-}
-export const setUserStatusActionCreator = (status: string): setUserStatusActionCreatorType => {
-    return {type: setUserStatusActionCreatorConst, status}
-}
-
-type setPhotoActionCreatorType = {
-    type: typeof setPhotoActionCreatorConst
-    photo: photosType
-}
-export const setPhotoActionCreator = (photo: photosType): setPhotoActionCreatorType => {
-    return {type: setPhotoActionCreatorConst, photo}
-}
-
-export const getUserThunkActionCreator = (userId: number): thunkTypes => {
+export const getUserThunkActionCreator = (userId: number): profileThunkTypes => {
     return async (dispatch) => {
         let getUser = await ProfileAPI.getUser(userId)
-        dispatch(setProfileActionCreator(getUser))
+        dispatch(profileActionCreators.setProfileActionCreator(getUser))
     }
 }
-export const setUserPhotoThunk = (file: any): thunkTypes => {
+export const setUserPhotoThunk = (file: any): profileThunkTypes => {
     return async (dispatch) => {
         let setPhoto = await ProfileAPI.setPhoto(file)
-        dispatch(setPhotoActionCreator(setPhoto.data.photos))
+        dispatch(profileActionCreators.setPhotoActionCreator(setPhoto.data.photos))
     }
 }
-export const setProfileDataThunk = (profile: profileType): thunkTypes => {
-    return async (dispatch: any) => {
+export const setProfileDataThunk = (profile: profileType): profileThunkTypes => {
+    return async (dispatch) => {
         let setProfile = await ProfileAPI.setProfile(profile)
         if (setProfile.resultCode === successErrorEnum.success) {
-            dispatch(setProfileActionCreator(profile))
+            dispatch(profileActionCreators.setProfileActionCreator(profile))
         } else {
             let message = setProfile.messages.length > 0 ? setProfile.messages[0] : "Some error";
-            let formErrorAction = stopSubmit("profile-data", {_error: message});
+            let formErrorAction: any = stopSubmit("profile-data", {_error: message});
             dispatch(formErrorAction);
             return Promise.reject(setProfile.messages[0])
         }
     }
 }
-export const getUserStatusThunkActionCreator = (userId: number): thunkTypes => {
+export const getUserStatusThunkActionCreator = (userId: number): profileThunkTypes => {
     return async (dispatch) => {
         let getUserStatus = await ProfileAPI.getUserStatus(userId)
-        dispatch(setUserStatusActionCreator(getUserStatus))
+        dispatch(profileActionCreators.setUserStatusActionCreator(getUserStatus))
     }
 }
-export const setUserStatusThunkActionCreator = (status: string): thunkTypes=> {
+export const setUserStatusThunkActionCreator = (status: string): profileThunkTypes=> {
     return async (dispatch) => {
         let setUserStatus = await ProfileAPI.setUserStatus(status)
         if (setUserStatus.resultCode === successErrorEnum.success) {
-            dispatch(setUserStatusActionCreator(status))
+            dispatch(profileActionCreators.setUserStatusActionCreator(status))
         }
     }
 }
-
-type thunkTypes = ThunkAction<
-    Promise<void>,
-    stateType,
-    unknown,
-    actionTypes
->
-
-type actionTypes =
-    addPostActionCreatorType
-    | setProfileActionCreatorType
-    | setUserStatusActionCreatorType
-    | setPhotoActionCreatorType
 
 const profileReducerInit = {
     postData: [
@@ -123,9 +80,9 @@ const profileReducerInit = {
 }
 type profileReducerInitType = typeof profileReducerInit
 
-const profileReducer = (state = profileReducerInit, action: actionTypes): profileReducerInitType => {
+const profileReducer = (state = profileReducerInit, action: profileActionsTypes): profileReducerInitType => {
     switch (action.type) {
-        case addPostActionCreatorConst:
+        case 'SN/PROFILE/ADD-POST':
             let newPostObject = {
                 id: 4,
                 message: action.message,
@@ -136,20 +93,19 @@ const profileReducer = (state = profileReducerInit, action: actionTypes): profil
                 ...state,
                 postData: [newPostObject, ...state.postData]
             }
-        case setProfileActionCreatorConst:
+        case 'SN/PROFILE/SET-PROFILE':
             return {
                 ...state,
                 profile: {...state.profile, ...action.profile}
             }
-        case setUserStatusActionCreatorConst:
+        case 'SN/PROFILE/SET-STATUS':
             return {
                 ...state,
                 userStatus: action.status
             }
-        case setPhotoActionCreatorConst:
+        case 'SN/PROFILE/SET-PHOTO':
             return {
                 ...state,
-                //profile: {...state.profile, photos: {...action.photo}} as profileType
                 profile: {...state.profile, photos: action.photo} as profileType
             }
     }
