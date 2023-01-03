@@ -1,9 +1,9 @@
-import {successErrorEnum} from "../api/api";
-import {usersType} from "../types/types";
-import {ThunkAction} from "redux-thunk";
-import {inferActionsTypes, stateType} from "./redux-store";
-import {UsersAPI} from "../api/usersAPI";
-import {FollowAPI} from "../api/followAPI";
+import {ThunkAction} from "redux-thunk"
+import {inferActionsTypes, stateType} from "./redux-store"
+import {successErrorEnum} from "../api/api"
+import {UsersAPI} from "../api/usersAPI"
+import {FollowAPI} from "../api/followAPI"
+import {usersType} from "../types/types"
 
 // Action creators
 
