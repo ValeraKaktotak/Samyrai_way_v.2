@@ -34,7 +34,7 @@ export const ProfileAPI = {
                 .then(response => response.data)
         )
     },
-    setPhoto(file: any) {
+    setPhoto(file: File) {
         let formData = new FormData();
         formData.append("image", file);
         return (
