@@ -1,7 +1,7 @@
 import style from './UserMessages.module.css';
 import UserMessage from "./UserMessage/UserMessage";
 import React from "react";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Textarea} from "../../commons/FormsControls/FormsControls";
 import {maxLength200, required} from "../../../helpers/validators";
 import {messagesReducerMessageDataType, messagesReducerMessageType} from "../../../types/types";
@@ -15,7 +15,7 @@ const UserMessages = (props: propsType) => {
 
     const messages = props.messages.map(m => <UserMessage key={m.id} message={m.message}/>);
 
-    const sendMessage = (data: any) => {
+    const sendMessage = (data: messagesReducerMessageType) => {
         props.onSendMessage(data);
     }
     return (
@@ -26,7 +26,7 @@ const UserMessages = (props: propsType) => {
     );
 }
 
-const UserMessagesForm = (props: any) => {
+const UserMessagesForm: React.FC<InjectedFormProps<messagesReducerMessageType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <Field name="userMessage" component={Textarea} placeholder='Enter your message'
@@ -38,7 +38,7 @@ const UserMessagesForm = (props: any) => {
     )
 }
 
-let WithReduxForm = reduxForm({
+let WithReduxForm = reduxForm<messagesReducerMessageType>({
     // a unique name for the form
     form: 'userMessage'
 })(UserMessagesForm)
