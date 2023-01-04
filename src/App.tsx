@@ -1,27 +1,33 @@
-import './App.css';
-import React from "react";
-import {Navigate, Route, Routes} from "react-router-dom";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
-import Music from "./components/Music/Music";
-import News from "./components/News/News";
-import Settings from "./components/Settings/Settings";
-import Login from "./components/Login/Login";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import {connect} from "react-redux";
-import {initializationAppThunkActionCreator} from "./redux/app-reducer";
-import Preloader from "./components/Preloader/Preloader";
+import React from "react"
+import {Navigate, Route, Routes} from "react-router-dom"
+import {connect} from "react-redux"
+import Sidebar from "./components/Sidebar/Sidebar"
+import Profile from "./components/Profile/Profile"
+import Dialogs from "./components/Dialogs/Dialogs"
+import Music from "./components/Music/Music"
+import News from "./components/News/News"
+import Settings from "./components/Settings/Settings"
+import Login from "./components/Login/Login"
+import HeaderContainer from "./components/Header/HeaderContainer"
+import Preloader from "./components/Preloader/Preloader"
+import {initializationAppThunkActionCreator} from "./redux/app-reducer"
+import './App.css'
 
 //React Lazy
 //import UsersContainer from "./components/Users/UsersContainer";
 import withSuspense from "./hoc/withSuspense";
+import {stateType} from "./redux/redux-store";
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
-class App extends React.Component{
+type mapPropsType = ReturnType<typeof mapStateToProps>
+type dispatchPropsType = {
+    initialization: () => void
+}
+
+class App extends React.Component<mapPropsType & dispatchPropsType>{
     //отлавливаем глобальные ошибку
-    catchAllUnhandledErrors = (reason, promise) => {
-        console.log(reason)
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+        alert("SOME ERROR!!!")
     }
     componentDidMount() {
         this.props.initialization()
@@ -65,7 +71,7 @@ class App extends React.Component{
     }
 }
 
-const mapStateToProps = (store) => ({
+const mapStateToProps = (store: stateType) => ({
     initialize: store.app.initialized
 })
 

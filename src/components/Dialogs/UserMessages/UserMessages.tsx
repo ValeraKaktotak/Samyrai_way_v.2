@@ -1,10 +1,10 @@
-import style from './UserMessages.module.css';
-import UserMessage from "./UserMessage/UserMessage";
-import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Textarea} from "../../commons/FormsControls/FormsControls";
-import {maxLength200, required} from "../../../helpers/validators";
-import {messagesReducerMessageDataType, messagesReducerMessageType} from "../../../types/types";
+import React from "react"
+import {Field, InjectedFormProps, reduxForm} from "redux-form"
+import UserMessage from "./UserMessage/UserMessage"
+import {Textarea} from "../../commons/FormsControls/FormsControls"
+import {maxLength200, required} from "../../../helpers/validators"
+import {messagesReducerMessageDataType, messagesReducerMessageType} from "../../../types/types"
+import style from './UserMessages.module.css'
 
 type propsType = {
     messages: Array<messagesReducerMessageDataType>
@@ -13,17 +13,17 @@ type propsType = {
 
 const UserMessages = (props: propsType) => {
 
-    const messages = props.messages.map(m => <UserMessage key={m.id} message={m.message}/>);
+    const messages = props.messages.map(m => <UserMessage key={m.id} message={m.message}/>)
 
     const sendMessage = (data: messagesReducerMessageType) => {
-        props.onSendMessage(data);
+        props.onSendMessage(data)
     }
     return (
         <div className={style.user_messages}>
             {messages}
             <WithReduxForm onSubmit={sendMessage}/>
         </div>
-    );
+    )
 }
 
 const UserMessagesForm: React.FC<InjectedFormProps<messagesReducerMessageType>> = (props) => {
