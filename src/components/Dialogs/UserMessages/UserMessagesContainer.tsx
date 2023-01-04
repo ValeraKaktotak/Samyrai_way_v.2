@@ -22,4 +22,4 @@ let mapStateToProps = (state: stateType) => {
 export default compose(withAuthRedirect,
     connect<MapStateProps, DispatchProps, OwnProps, stateType>(mapStateToProps, {
         onSendMessage: messageActionsCreators.addMessageActionCreator})
-    )(UserMessages)
+    )(UserMessages) as React.ComponentType

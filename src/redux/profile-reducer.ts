@@ -19,7 +19,7 @@ export const getUserThunkActionCreator = (userId: number): profileThunkTypes => 
         dispatch(profileActionCreators.setProfileActionCreator(getUser))
     }
 }
-export const setUserPhotoThunk = (file: any): profileThunkTypes => {
+export const setUserPhotoThunk = (file: File): profileThunkTypes => {
     return async (dispatch) => {
         let setPhoto = await ProfileAPI.setPhoto(file)
         dispatch(profileActionCreators.setPhotoActionCreator(setPhoto.data.photos))

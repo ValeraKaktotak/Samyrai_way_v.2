@@ -95,4 +95,4 @@ export default compose(
             setProfileData: setProfileDataThunk
         }
     )
-)(MyProfileContainer)
+)(MyProfileContainer) as React.ComponentType

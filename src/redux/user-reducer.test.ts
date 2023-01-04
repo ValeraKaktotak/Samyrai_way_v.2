@@ -1,4 +1,4 @@
-import usersReducer, {preloaderActionCreator} from "./users-reducer";
+import usersReducer, {actionsCreators} from "./users-reducer";
 
 //1.test data
 const state = {
@@ -13,7 +13,7 @@ const state = {
 test('test preloader', () => {
 
     //1.test data
-    const action = preloaderActionCreator(true);
+    const action = actionsCreators.preloaderActionCreator(true);
 
     //2.test action
     const reducer = usersReducer(state, action);
