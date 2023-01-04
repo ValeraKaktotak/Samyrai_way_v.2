@@ -17,4 +17,4 @@ let mapStateToProps = (state:stateType)=> {
 export default compose(
     withAuthRedirect,
     connect<MapStateProps, DispatchProps, OwnProps, stateType>(mapStateToProps)
-)(UserDialogs)
+)(UserDialogs) as React.ComponentType

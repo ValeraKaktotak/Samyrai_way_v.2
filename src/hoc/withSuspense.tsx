@@ -1,9 +1,9 @@
 import React, {Suspense} from "react";
 import Preloader from "../components/Preloader/Preloader";
 
-const withSuspense = (Component) => {
+function withSuspense(Component:React.ComponentType) {
     return <Suspense fallback={<div>Download</div>}>
-        <Component/>
+        <Component />
     </Suspense>
 }
 

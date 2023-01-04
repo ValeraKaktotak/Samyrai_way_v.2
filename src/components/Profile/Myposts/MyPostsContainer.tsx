@@ -44,4 +44,4 @@ export default compose(
     connect<mapStateTypes, mapDispatchTypes, OwnPropsType, stateType>(mapStateToProps, {
         onAddPost: profileActionCreators.addPostActionCreator
     })
-)(MyPostContainer)
+)(MyPostContainer) as React.ComponentType
